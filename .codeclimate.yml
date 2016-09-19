@@ -1,0 +1,11 @@
+engines:
+  duplication:
+    enabled: true
+    config:
+      languages:
+      - php
+      - javascript
+exclude_paths:
+- test/**/*
+- vendor/**/*
+- lib/**/*
