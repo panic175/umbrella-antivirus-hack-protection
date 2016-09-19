@@ -60,4 +60,4 @@ require_once( UMBRELLA__PLUGIN_DIR . 'src/controller.class.php' );
 require_once( UMBRELLA__PLUGIN_DIR . 'src/autoload.class.php' );
 
 // Run the autoloader
-new Umbrella\Autoload;
+new Umbrella\Autoload();
