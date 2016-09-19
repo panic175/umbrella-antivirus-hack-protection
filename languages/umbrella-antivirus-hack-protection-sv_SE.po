@@ -1,0 +1,492 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Site Protection\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: Sat Aug 29 2015 18:45:50 GMT+0200 (CEST)\n"
+"PO-Revision-Date: Mon Aug 31 2015 22:52:53 GMT+0200 (CEST)\n"
+"Last-Translator: Local Development <rk@youngmedia.se>\n"
+"Language-Team: \n"
+"Language: Swedish\n"
+"Plural-Forms: nplurals=2; plural=n != 1\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-Basepath: .\n"
+"X-Poedit-SearchPath-0: ..\n"
+"X-Poedit-KeywordsList: _:1;gettext:1;dgettext:2;ngettext:1,2;dngettext:2,3;"
+"__:1;_e:1;_c:1;_n:1,2;_n_noop:1,2;_nc:1,2;__ngettext:1,2;__ngettext_noop:1,2;"
+"_x:1,2c;_ex:1,2c;_nx:1,2,4c;_nx_noop:1,2,3c;_n_js:1,2;_nx_js:1,2,3c;"
+"esc_attr__:1;esc_html__:1;esc_attr_e:1;esc_html_e:1;esc_attr_x:1,2c;"
+"esc_html_x:1,2c;comments_number_link:2,3;t:1;st:1;trans:1;transChoice:1,2\n"
+"X-Loco-Target-Locale: sv_SE\n"
+"X-Generator: Loco - https://localise.biz/"
+
+#: ../views/network.view.php:8
+msgid "Do you manage a lot of WordPress sites?"
+msgstr ""
+
+#: ../views/network.view.php:10
+msgid "We are looking for BETA testers"
+msgstr ""
+
+#: ../views/network.view.php:11
+msgid ""
+"We will soon release our first BETA version and give out 100 beta invites "
+"for free."
+msgstr ""
+
+#: ../views/network.view.php:12
+msgid ""
+"If you want to be one of the first BETA-testers, subcribe to our email list "
+"by filling in your email in the form below and we will send you an invite "
+"when our first beta of Umbrella Network is released."
+msgstr ""
+
+#: ../views/logging.view.php:72
+msgid "$_REQUEST DATA"
+msgstr ""
+
+#: ../views/logging.view.php:83
+msgid "QUERY STRING"
+msgstr ""
+
+#: ../src/autoload.class.php:290
+msgid "Site Protection by Umbrella Plugins"
+msgstr ""
+
+#: ../views/permissions.view.php:5
+msgid "Writable Files"
+msgstr "Skrivbara filer"
+
+#: ../views/permissions.view.php:11 ../views/permissions.view.php:19
+msgid "File"
+msgstr "Fil"
+
+#: ../views/permissions.view.php:12 ../views/permissions.view.php:20
+msgid "Chmod"
+msgstr "Skrivrättigheter"
+
+#: ../views/permissions.view.php:13 ../views/permissions.view.php:21
+msgid "Recommended"
+msgstr "Rekommenderad"
+
+#: ../views/scanner_no_md5_list.view.php:7
+msgid ""
+"This scanner does not work with your version of WordPress. Please update "
+"your core files."
+msgstr ""
+"Genomsökningen går tyvärr inte att göra med din version av WordPress. Var "
+"vänlig uppdatera till senaste version."
+
+#: ../views/scanner_no_md5_list.view.php:9
+msgid "Please also make sure that Umbrella is running the latest version"
+msgstr ""
+"Glöm inte att dubbelkolla så att du kör den senaste versionen av Umbrella "
+"Site Protection"
+
+#: ../views/network.view.php:7
+msgid "An introduction to Umbrella Network"
+msgstr "En introduktion till Umbrella Network"
+
+#: ../views/logging.view.php:9
+msgid "Enable admin notices"
+msgstr "Aktivera notiser"
+
+#: ../views/logging.view.php:11
+msgid "Disable admin notices"
+msgstr "Stäng av notiser"
+
+#: ../views/logging.view.php:15
+msgid "Empty logs"
+msgstr "Töm logg"
+
+#: ../views/logging.view.php:17 ../src/autoload.class.php:216 ../src/autoload.
+#: class.php:296 ../src/autoload.class.php:296 ../src/controller.class.php:31
+msgid "Logs"
+msgstr "Loggar"
+
+#: ../views/logging.view.php:21
+msgid "You have no log entries yet."
+msgstr "Inga logginlägg sparade.."
+
+#: ../views/logging.view.php:28 ../views/logging.view.php:37
+msgid "Time"
+msgstr "Tid"
+
+#: ../views/logging.view.php:29 ../views/logging.view.php:38
+msgid "Module"
+msgstr "Modul"
+
+#: ../views/logging.view.php:30 ../views/logging.view.php:39
+msgid "IP-address"
+msgstr "IP-adress"
+
+#: ../views/logging.view.php:31 ../views/logging.view.php:40
+msgid "Information"
+msgstr "Information"
+
+#: ../views/logging.view.php:60
+msgid "toggle advanced details"
+msgstr "visa/dölj avancerade inställningar"
+
+#: ../views/logging.view.php:65
+msgid "VISITOR INFORMATION"
+msgstr "Information om besökaren"
+
+#: ../views/header.view.php:30
+msgid "Do you enjoy our product?"
+msgstr "Är du nöjd med vår produkt?"
+
+#: ../views/header.view.php:31
+msgid ""
+"Why not sign up for email updates? We promise we won't spam you, and we'll "
+"only send out emails when we have written someting truly worth reading."
+msgstr ""
+"Gå gärna med i vårt nyhetsbrev. Vi lovar att vi bara skickar ut e-post när "
+"vi har något som verkligen är värt att läsa."
+
+#: ../views/header.view.php:34
+msgid "SUBSCRIBE"
+msgstr "Gå med!"
+
+#: ../views/backup.view.php:5
+msgid "Database backups"
+msgstr "Säkerhetskopiera databasen"
+
+#: ../views/backup.view.php:6
+msgid "This will export all of your database tables into a downloadable SQL-file."
+msgstr "Exportera databasen till en nedladdningsbar SQL-fil."
+
+#: ../views/backup.view.php:8
+msgid "Backup mySQL-database now"
+msgstr "Skapa SQL-fil nu"
+
+#: ../views/backup.view.php:15 ../views/backup.view.php:25
+msgid "Date Created"
+msgstr "Datum skapad"
+
+#: ../views/backup.view.php:16 ../views/backup.view.php:26
+msgid "MD5 checksum"
+msgstr "MD5 sträng"
+
+#: ../views/backup.view.php:17 ../views/backup.view.php:27
+msgid "Location"
+msgstr "Sökväg"
+
+#: ../views/backup.view.php:18 ../views/backup.view.php:28
+msgid "File Size"
+msgstr "Filstorlek"
+
+#: ../views/backup.view.php:19 ../views/backup.view.php:29
+msgid "Download"
+msgstr "Ladda ner"
+
+#: ../views/backup.view.php:40
+msgid "Download SQL-file"
+msgstr "Ladda ner SQL-fil"
+
+#: ../views/vulnerabilities.view.php:5
+msgid "Plugin Vulnerabilities"
+msgstr "Säkerhetshål i plugins"
+
+#: ../views/vulnerabilities.view.php:11 ../views/vulnerabilities.view.php:19
+msgid "Plugin Name"
+msgstr "Plugin Namn"
+
+#: ../views/vulnerabilities.view.php:12 ../views/vulnerabilities.view.php:20 ..
+#: views/dashboard.view.php:25
+msgid "Plugin Version"
+msgstr "Plugin Version"
+
+#: ../views/vulnerabilities.view.php:13 ../views/vulnerabilities.view.php:21 ..
+#: views/vulnerabilities.view.php:80 ../views/vulnerabilities.view.php:88
+msgid "Vulnerabilities"
+msgstr "Säkerhetshål"
+
+#: ../views/vulnerabilities.view.php:40 ../views/vulnerabilities.view.php:108
+msgid "No vulnerabilities found."
+msgstr "Inga säkerhetshål hittades"
+
+#: ../views/vulnerabilities.view.php:43 ../views/vulnerabilities.view.php:110
+msgid "Couldn't connect. Please reload this page."
+msgstr ""
+"Något gick fel vid anslutningen till databasen. Försök med att ladda om "
+"sidan."
+
+#: ../views/vulnerabilities.view.php:60 ../views/vulnerabilities.view.php:126
+msgid "No external information found about this vulnerabilty."
+msgstr "Ingen extern information hittades om detta säkerhetshål"
+
+#: ../views/vulnerabilities.view.php:72
+msgid "Theme Vulnerabilities"
+msgstr "Säkerhetshål i teman"
+
+#: ../views/vulnerabilities.view.php:78 ../views/vulnerabilities.view.php:86
+msgid "Theme Name"
+msgstr "Temats namn"
+
+#: ../views/vulnerabilities.view.php:79 ../views/vulnerabilities.view.php:87
+msgid "Theme Version"
+msgstr "Temats version"
+
+#: ../views/dashboard.view.php:8 ../src/autoload.class.php:290 ../src/controller.
+#: class.php:27
+msgid "General"
+msgstr "Allmänt"
+
+#: ../views/dashboard.view.php:13
+msgid "Domain Name"
+msgstr "Domännamn"
+
+#: ../views/dashboard.view.php:17
+msgid "Safe Browsing"
+msgstr "Säker webbsökning"
+
+#: ../views/dashboard.view.php:31
+msgid "Domains on IP"
+msgstr "Domäner på IP"
+
+#: ../views/dashboard.view.php:39
+msgid "Server"
+msgstr "Server"
+
+#: ../views/dashboard.view.php:44
+msgid "Software"
+msgstr "Serverprogram"
+
+#: ../views/dashboard.view.php:49
+msgid "PHP Version"
+msgstr "PHP Version"
+
+#: ../views/dashboard.view.php:56
+msgid "Database"
+msgstr "Databas"
+
+#: ../views/dashboard.view.php:60
+msgid "Database Type"
+msgstr "Databastyp"
+
+#: ../views/dashboard.view.php:64
+msgid "Database Host"
+msgstr "Databasvärd"
+
+#: ../views/dashboard.view.php:68
+msgid "Database Name"
+msgstr "Databas"
+
+#: ../views/dashboard.view.php:72
+msgid "Database User"
+msgstr "Databasanvändare"
+
+#: ../views/dashboard.view.php:78
+msgid "CDN &amp; DDOS-Protection"
+msgstr "CDN & DDOS-skydd"
+
+#: ../views/dashboard.view.php:84
+msgid "Protected by CloudFlare"
+msgstr "Skyddat av Cloudflare"
+
+#: ../views/dashboard.view.php:86
+msgid "Set up with CloudFlare.com"
+msgstr "Konfigurera Cloudflare"
+
+#: ../views/dashboard.view.php:96 ../src/autoload.class.php:215
+msgid "Settings"
+msgstr "Inställningar"
+
+#: ../views/dashboard.view.php:98
+msgid ""
+"This plugin does nothing by default, and that's because we want you to know "
+"whats happening behind the scenes. \n"
+"		With that said, please choose wich modules and settings you want to use "
+"with Umbrella. Even if nothing is loaded by default, \n"
+"		we recommend you to activate them all for best protection."
+msgstr ""
+"Det här pluginet gör inget av sig självt utan du ber det om det. Vi vill att "
+"användaren ska ha 100% koll på vad som händer och därför måste du själv "
+"välja vilka moduler du vill använda med Umbrella. Vi rekommenderar dig att "
+"aktivera alla moduler för bästa säkerhet."
+
+#: ../views/dashboard.view.php:103
+msgid "Enable/disable settings"
+msgstr "PÅ/AV inställningar"
+
+#: ../views/dashboard.view.php:115 ../views/dashboard.view.php:122
+msgid "Name"
+msgstr "Namn"
+
+#: ../views/dashboard.view.php:116 ../views/dashboard.view.php:123
+msgid "Description"
+msgstr "Beskrivning"
+
+#: ../views/dashboard.view.php:154
+msgid "Save Changes"
+msgstr "Spara ändringar"
+
+#: ../views/dashboard.view.php:179
+msgid "Automatic Plugin Updates."
+msgstr "Automatiska pluginuppdateringar"
+
+#: ../views/dashboard.view.php:180
+msgid "Automatic updates of this plugin is enabled by default."
+msgstr "Automatiska pluginuppdateringar är aktiverat som standard."
+
+#: ../views/dashboard.view.php:182
+msgid "Enable automatic updates"
+msgstr "Aktivera automatiska pluginuppdateringar"
+
+#: ../views/dashboard.view.php:184
+msgid "Disable automatic updates"
+msgstr "Stäng av automatiska pluginuppdateringar"
+
+#: ../views/scanner.view.php:4
+msgid "Core Scanner"
+msgstr "WordPress scanner"
+
+#: ../views/scanner.view.php:7
+msgid ""
+"This will search trough your core folders for unexpected files or "
+"modifications in core files."
+msgstr ""
+"Filsökaren söker igenom din WordPress installation efter okända filer eller "
+"modifikationer."
+
+#: ../views/scanner.view.php:9
+msgid ""
+"The scanner will not include your wp-content directory nor your wp-config."
+"php file."
+msgstr "Det här inkluderar inte filer under /wp-content eller wp-config.php"
+
+#: ../views/scanner.view.php:13
+msgid "Scan core files"
+msgstr "Sök igenom WordPress-installationen"
+
+#: ../views/scanner.view.php:18
+msgid "Core scanner succeeded without any errors. Your WordPress CORE is fine =)"
+msgstr ""
+"Filscanningen slutfördes utan problem. Inga misstänkta filer eller "
+"modifikationer har hittats i din WordPress-installation."
+
+#: ../views/scanner.view.php:22
+msgid "Results from latest scan:"
+msgstr "Resultat från din senaste genomsökning:"
+
+#: ../views/scanner.view.php:30 ../views/scanner.view.php:39
+msgid "Error"
+msgstr "Felmeddelande"
+
+#: ../views/scanner.view.php:31 ../views/scanner.view.php:40
+msgid "File path"
+msgstr "Sökväg"
+
+#: ../views/scanner.view.php:32 ../views/scanner.view.php:41
+msgid "md5 checksum"
+msgstr "MD5 sträng"
+
+#: ../views/scanner.view.php:33 ../views/scanner.view.php:42
+msgid "Action"
+msgstr "Åtgärd"
+
+#: ../src/autoload.class.php:247
+msgid "Update Now"
+msgstr "Uppdatera nu"
+
+#: ../src/autoload.class.php:249 ../src/autoload.class.php:263 ../src/autoload.
+#: class.php:289 ../src/autoload.class.php:289 ../src/modules/captcha_login.php:8
+msgid "Site Protection"
+msgstr "Webbplatsskydd"
+
+#: ../src/autoload.class.php:250
+#, php-format
+msgid ""
+"A new version of Umbrella Site Protection is available: <strong>%s</strong>. "
+"Please update now for better protection."
+msgstr ""
+"En ny version av Umbrella Site Protection finns tillgänglig: "
+"<strong>%s</strong>. Uppdatera nu för bättre säkerhet."
+
+#: ../src/autoload.class.php:261
+msgid "View logs"
+msgstr "Visa loggar"
+
+#: ../src/autoload.class.php:264
+#, php-format
+msgid "You have <strong>%d</strong> unread log message(s)."
+msgstr "Du har <strong>%d</strong> olästa meddelanden"
+
+#: ../src/autoload.class.php:293 ../src/autoload.class.php:293 ../src/controller.
+#: class.php:28
+msgid "Plugins & Themes"
+msgstr "Plugin & Teman"
+
+#: ../src/autoload.class.php:294 ../src/autoload.class.php:294 ../src/controller.
+#: class.php:29
+msgid "WordPress CORE"
+msgstr "WordPress-installation"
+
+#: ../src/autoload.class.php:295 ../src/autoload.class.php:295 ../src/controller.
+#: class.php:30
+msgid "Database Backup"
+msgstr "Säkerhetskopiera databas"
+
+#: ../src/scanner.class.php:73
+msgid "Unknown"
+msgstr "Okänd"
+
+#: ../src/scanner.class.php:323
+msgid "Connection Problem"
+msgstr "Anslutningsproblem"
+
+#: ../src/scanner.class.php:354 ../src/scanner.class.php:379
+msgid "Ignore"
+msgstr "Ignorera"
+
+#: ../src/scanner.class.php:383
+msgid "View Changes"
+msgstr "Visa ändringar"
+
+#: ../src/modules.class.php:23
+msgid "Check for plugin updates each 10 minutes instead of each 12 hours."
+msgstr ""
+"Kontrollera pluginversioner var 10nde minut istället för WordPress default "
+"(12 timmar)."
+
+#: ../src/modules.class.php:24
+msgid "Block all unauthorized and irrelevant requests through query strings."
+msgstr "Blockera oönskade och misstänkta GET/POST-förfrågningar"
+
+#: ../src/modules.class.php:25
+msgid "Add CAPTCHA to login screen."
+msgstr "Förhindra bruteforce attacker med CAPTCHA verifiering "
+
+#: ../src/modules.class.php:26
+msgid ""
+"Hide version numbers in your front-end source code for WordPress-core and "
+"all of your plugins. This will affect meta-tags, stylesheet and javascripts "
+"urls."
+msgstr ""
+"Dölj din WordPress-installations versionsnummer för besökaren. Denna modul "
+"påverkar även plugin och teman som inkluderar js/css på ett korrekt sätt."
+
+#: ../src/modules.class.php:27
+msgid "Completely turn off trackbacks &amp; pingbacks to your site."
+msgstr "Stäng av trackbacks och pingbacks till din webbplats."
+
+#: ../src/modules.class.php:28
+msgid ""
+"Disable Themes & Plugins-editor so that files can not be changed trough "
+"WordPress Dashboard."
+msgstr ""
+"Stäng av Tema- & Plugin editorn så att filer inte kan redigeras genom "
+"WordPress Dashboard."
+
+#: ../src/modules/captcha_login.php:9
+msgid "WARNING! Captcha Login doesn't work without the GD & FreeType PHP modules."
+msgstr ""
+"VARNING! Captcha login fungerar inte utan modulerna PHP-modulerna GD & "
+"FreeType."
+
+#: ../src/modules/filter_requests.php:28
+msgid "Blocked suspicous request"
+msgstr "Blockerade misstänkt förfrågan"

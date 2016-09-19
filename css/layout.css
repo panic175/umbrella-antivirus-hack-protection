@@ -1,0 +1,229 @@
+@import url(//fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,900);
+
+#wpcontent, #wpfooter {
+	background: #ecf0f1;
+	font-family: 'Source Sans Pro', sans-serif;
+	font-weight: 400;
+}
+
+.logdetails td {
+	background: #34495e;
+	color: #ffffff;
+}
+
+.paginator {
+	text-align: center;
+	font-size: 15px;
+	margin: 10px 0px;
+}
+
+table.diff td {
+	font-size: 12px !important;
+}
+
+#compare-container {
+	display: none;
+}
+
+#header-img {
+	width: 100%;
+	padding: 0px;
+	margin: 0px;
+	margin-bottom: 30px;
+}
+
+#wpbody-content .error {
+	display: none;
+}
+
+.spacer {
+	height: 30px;
+}
+
+#umbrella-site-protection {
+	margin: 0px;
+	margin-top: 10px;
+	width: 100%;
+	padding: 25px;
+	box-sizing: border-box;
+}
+
+#umbrella-site-protection .big-input {
+	margin: 0px;
+	font-size: 14px;
+	padding: 5px 5px;
+	width: 400px;
+	margin-bottom: 15px;
+}
+
+#umbrella-site-protection p {
+	font-size: 14px;
+}
+
+#umbrella-site-protection #filescanner {
+	display: none;
+}
+
+.scanner-ajax-loader {
+	margin-left: 10px;
+	vertical-align: middle;
+	margin-top: -1px;
+	display: none;
+}
+
+#umbrella-site-protection p#no-errors-found
+{
+	color: #27ae60 !important;
+	font-size: 20px;
+	display: none;
+}
+
+
+#umbrella-site-protection h2,h3,h4 {
+	color: #d52349;
+}
+
+h1#umbrella-title {
+	font-family: 'Source Sans Pro', sans-serif;
+	color: #34495e;
+	text-align: center;
+	font-size: 48px;
+	padding: 0px;
+	letter-spacing: -2px;
+	font-weight: 900;
+	margin-top: 50px;
+}
+
+h1#umbrella-title span {
+	color:#121212
+	font-weight: 300;
+	font-size: 18px;
+	letter-spacing: 0px;
+	vertical-align: middle;
+}
+
+#umbrella-nav > ul {
+	text-align: center;
+	margin: 0px;
+}
+
+#umbrella-nav > ul > li {
+  display: inline-block;
+  margin: 0 10px 0 10px;
+
+}
+
+#umbrella-nav > ul > li > a {
+  display: inline-block;
+  font-style: italic;
+  font-weight: 300;
+  font-size: 18px;
+  text-decoration: none;
+  color: #565656;
+  padding: 10px 20px;
+  border-radius: 4px;
+}
+
+#umbrella-nav > ul > li.current > a {
+  background: #d52349;
+  color: #fff !important;
+  font-weight: 400;
+}
+
+#umbrella-site-protection:before, #umbrella-site-protection:after {
+  box-sizing: inherit;
+}
+
+.button { font-family: 'Open Sans', sans-serif; }
+
+#umbrella_serial_box_1 {
+	width: 100%;
+	padding: 25px 25px 20px 25px;
+	background: #ffffff;
+	margin-top: 22px;
+}
+
+#umbrella_serial_box_1 h3 { color:#f39c12; margin: 0px; }
+
+#umbrella_serial_box_2 {
+	width: 100%;
+	padding: 25px 25px 20px 25px;
+	background: #f39c12;
+	margin-top: 22px;
+}
+
+#umbrella_serial_box_2 h3 { color:#ffffff; margin-top: 0px; }
+
+
+
+#umbrella_subscribe_box {
+	display: none;
+	position: fixed;
+	left: 50%;
+	top: 50%;
+	padding: 25px 25px 0px 25px;
+	margin-left: -250px;
+	margin-top: -100px;
+	width: 500px;
+	box-shadow: 0px 0px 2px rgba(100,100,100,0.4);
+	background: #3498db;
+	color: #ffffff;
+}
+
+#umbrella_subscribe_box form {
+	margin: 0px;
+	padding: 0px;
+}
+
+#umbrella_subscribe_box h3 {
+	color: #ffffff;
+	margin: 0px;
+	margin-bottom: 25px;
+	text-transform: uppercase;
+}
+
+#umbrella_subscribe_box #nosubscribe {
+	color: #121212;
+	text-decoration: none;
+	font-size: 12px;
+	float: right;
+	vertical-align: middle;
+}
+
+#umbrella_subscribe_box p {
+	margin-top: 10px;
+	line-height: 22px;
+}
+
+#umbrella_subscribe_box input[type="text"] {
+	background: #efefef;
+	color: #121212;
+	padding: 15px;
+	border: 5px #fff solid;
+	font-size: 16px !important;
+	margin-top: 10px;
+}
+
+#umbrella_subscribe_box input[type="submit"] {
+	background: #2980b9;
+	color: #121212;
+	border: 5px #fff solid;
+	margin-top: 10px;
+	line-height: 20px;
+	color: #ffffff;
+	text-transform: uppercase;
+	padding: 15px;
+	font-weight: bold;
+	letter-spacing: 1px;
+	cursor: pointer;
+}
+
+#umbrella_subscribe_box input[type="submit"]:hover {
+	color: #2980b9;
+	background: #ffffff;
+}
+
+.umbrella-sidebar h3 { margin-bottom: 4px; }
+.umbrella-sidebar table {
+	margin-bottom: 20px;
+}
