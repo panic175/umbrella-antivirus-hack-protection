@@ -1,11 +1,20 @@
 engines:
+  csslint:
+    enabled: true
   duplication:
     enabled: true
     config:
       languages:
       - php
       - javascript
+      - css
+ratings:
+  paths:
+  - css/**
+  - src/**
+  - views/**
+  - js/**
+  - "**.php"
 exclude_paths:
 - test/**/*
-- vendor/**/*
 - lib/**/*
