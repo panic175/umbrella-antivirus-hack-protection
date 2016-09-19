@@ -24,9 +24,6 @@
 */
 if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
-if (!session_id())
-    session_start();
-
 $up_dir = wp_upload_dir();
 
 // Define some good constants.
