@@ -16,5 +16,6 @@ ratings:
   - js/**
   - "**.php"
 exclude_paths:
+- bin/**/*
 - test/**/*
 - lib/**/*

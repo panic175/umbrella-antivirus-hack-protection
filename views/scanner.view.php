@@ -73,16 +73,13 @@ Umbrella\Controller::header($data); ?>
 	<div class="revisions-diff-frame">
 		<div class="revisions-diff">
 			<div class="diff">
-
-			<table class="diff">
-				<tr>
-					<td class="diffBlank"><h4>Original File</h4></td>
-					<td class="diffBlank"><h4>Modifications</h4></td>
-				</tr>
-			</table>
-
-			<div id="compare-results-data"></div>
-
+				<table class="diff">
+					<tr>
+						<td class="diffBlank"><h4>Original File</h4></td>
+						<td class="diffBlank"><h4>Modifications</h4></td>
+					</tr>
+				</table>
+				<div id="compare-results-data"></div>
 			</div>
 		</div>
 	</div>
