@@ -1,7 +1,7 @@
 # Umbrella Antivirus & Hack protection
 
 [![Build Status](https://travis-ci.org/kjellberg/umbrella-antivirus-hack-protection.svg?branch=master)](https://travis-ci.org/kjellberg/umbrella-antivirus-hack-protection)
-[![GitHub issues](https://img.shields.io/github/issues/kjellberg/umbrella-antivirus-hack-protection.svg)](https://github.com/kjellberg/umbrella-antivirus-hack-protection/issues)
+[![Code Climate](https://codeclimate.com/github/kjellberg/umbrella-antivirus-hack-protection/badges/gpa.svg)](https://codeclimate.com/github/kjellberg/umbrella-antivirus-hack-protection)
 
 Umbrella helps you to protect your WordPress site and scans your plugin and themes for known vulnerabilities. More functions are planned and will be launched soon. Please look for updates or help us building the best Wordpress antivirus ever by contributing. All pull requests are welcome :)
 
