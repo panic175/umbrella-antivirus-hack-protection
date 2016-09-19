@@ -32,7 +32,7 @@ class Controller
 		);
 
 		self::make('header', $data);
-	}		
+	}
 
 	/**
 	 * Footer
@@ -43,7 +43,7 @@ class Controller
 
 		$data = array();
 		self::make('footer', $data);
-	}	
+	}
 
 	/**
 	 * Logging
@@ -81,7 +81,7 @@ class Controller
 		$data['unread'] = Log::counter();;
 
 		self::make('logging', $data);
-	}		
+	}
 
 	/**
 	 * Dashboard
@@ -128,7 +128,7 @@ class Controller
 		$data['software'] = $server_software;
 		$data['shared_domains'] = $shared_domains;
 		$data['version'] = phpversion();
-		
+
 		self::make('dashboard', $data);
 	}
 
@@ -143,12 +143,12 @@ class Controller
 
 		$scanner = new Scanner;
 		$locale = get_locale();
-		$data_file = UMBRELLA__PLUGIN_DIR . "data/wordpress-{$scanner->wp_version()}.db";
+		$data_file = \Umbrella\Scanner::get_db_file();
 
 		// Show error page if no data file found.
 		if (!file_exists($data_file))
 			return self::make('scanner_no_md5_list');
-	
+
 		// Get data if cached.
 		$fileslist = array();
 
@@ -162,20 +162,20 @@ class Controller
 			$fileslist = get_transient('umbrella-file-scan');
 
 		// Remove temporary ignored files from files list.
-     	$ignored_files = $scanner->ignored_files();
+   	$ignored_files = $scanner->ignored_files();
 
-        if (is_array($fileslist)) {
+		if (is_array($fileslist)) {
 
-	    	foreach ($fileslist as $index => $file)
-	        {
-	        	if (isset($ignored_files[$file['file']]) 
-	        		AND isset($file['response']['md5']) 
-	        		AND $ignored_files[$file['file']] == $file['response']['md5'])
-	        			unset($fileslist[$index]);
-	        } 
+			foreach ($fileslist as $index => $file)
+			{
+				if (isset($ignored_files[$file['file']])
+					AND isset($file['response']['filesize'])
+					AND $ignored_files[$file['file']] == $file['response']['filesize'])
+						unset($fileslist[$index]);
+			}
 		}
 
-        $data['fileslist'] = $fileslist;
+    $data['fileslist'] = $fileslist;
 		self::make('scanner', $data);
 
 	}
@@ -186,7 +186,7 @@ class Controller
 	 * @return void
 	*/
 	static public function vulnerabilities() {
-	
+
 		$plugins = Scanner::vulndb_plugins();
 		$themes = Scanner::vulndb_themes();
 
@@ -194,7 +194,7 @@ class Controller
 		$data['themes'] = $themes;
 
 		self::make('vulnerabilities', $data);
-	}		
+	}
 
 	/**
 	 * Backup
@@ -202,7 +202,7 @@ class Controller
 	 * @return void
 	*/
 	static public function backup() {
-		
+
 		global $wpdb;
 
 		// Button functions
@@ -217,13 +217,13 @@ class Controller
 			}
 		}
 
-		$size = 0;  
+		$size = 0;
 		$results = $wpdb->get_results( 'SHOW TABLE STATUS' );
 
 		foreach($results as $r)
-			$size += $r->Data_length + $r->Index_length;  
+			$size += $r->Data_length + $r->Index_length;
 
-		$decimals = 2;  
+		$decimals = 2;
 		$mbytes = number_format($size/(1024*1024),$decimals);
 
 		$data['mysql']['user'] = DB_USER;
@@ -234,7 +234,7 @@ class Controller
 		$data['mysql_dumps'] = \Umbrella\Backup::getDatabaseDumps();
 
 		self::make('backup', $data);
-	}	
+	}
 
 	/**
 	 * Permissions
@@ -245,7 +245,7 @@ class Controller
 
 		$filehandler = new FileHandler();
 		$filelist = $filehandler->search(ABSPATH, 'is_writable', '1', false);
-		
+
 		$data['warning_list'] = $filelist;
 
 		self::make('permissions', $data);
@@ -265,7 +265,7 @@ class Controller
 
 		$path_to_file = UMBRELLA__PLUGIN_DIR . 'views/' . $view . '.view.php';
 
-		if (is_array($data)) 
+		if (is_array($data))
 			extract($data);
 
 		if ( file_exists( $path_to_file ) )
@@ -275,5 +275,5 @@ class Controller
 
 	}
 
-	
+
 }

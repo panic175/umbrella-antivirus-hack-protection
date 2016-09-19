@@ -53,7 +53,7 @@ jQuery("#startscanner").on('click', function() {
 		$('#umbrella-scan-console button .label').text('Scan core files');
 
 		console.log(response);
-		
+
 		var fileslist = JSON.parse(response);
 
 		$('#umbrella-scan-console button').removeAttr('disabled').addClass('button-primary');
@@ -67,7 +67,7 @@ jQuery("#startscanner").on('click', function() {
 			location.href='admin.php?page=umbrella-scanner';
 		}
 
-		
+
 	});
 
 });
@@ -75,7 +75,7 @@ jQuery("#startscanner").on('click', function() {
 function umbrella_check_file( file, percent, index)
 {
 	$.get( "admin.php?page=umbrella-scanner&action=check_file&file=" + file, function( data ) {
-		
+
 		$console.text("Scanning: " + file);
 		$("#progress" + percent).css('visibility', 'visible');
 		var obj = JSON.parse(data);
@@ -89,10 +89,10 @@ function umbrella_check_file( file, percent, index)
 				for (var i = obj.buttons.length - 1; i >= 0; i--) {
 					buttons += '<a href="' + obj.buttons[i].href + '" class="button">' + obj.buttons[i].label + '</a>';
 				};
-				
+
 			}
 
-			$thelist.append("<tr class='alternate'><td><strong>"+obj.error.msg+"</strong><br><small>#"+obj.error.code+"</small></td><td>"+obj.file+"</td><td>"+buttons+"</td></tr>");
+			$thelist.append("<tr class='alternate'><td><strong>"+obj.error.msg+"</strong><br><small>#"+obj.error.code+"</small></td><td>"+obj.file_path+"</td><td>"+buttons+"</td></tr>");
 		}
 
 	});

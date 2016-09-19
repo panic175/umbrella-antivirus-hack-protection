@@ -1,11 +1,11 @@
 <?php
 /*
-	Plugin Name: Site Protection
-	Plugin URI: https://www.siteprotection.co/
-	Description: WordPress Antivirus and Hack protection. With features as vulnerability scanner, file Scanner, hide versions, disable pings, captcha login and more.
-	Author: SiteProtection.co
+	Plugin Name: Umbrella Antivirus & Hack protection
+	Plugin URI: https://www.umbrellaantivirus.com
+	Description: WordPress Antivirus and Hack protection. With features as vulnerability scanner, file scanner, hide versions, disable pings, captcha login and more.
+	Author: Umbrella Antivirus
 	Version: 1.8.5
-	Author URI: https://www.siteprotection.co/
+	Author URI: https://www.umbrellaantivirus.com
     Text Domain: umbrella-antivirus-hack-protection
     Domain Path: /languages
 */

@@ -1,10 +1,10 @@
-=== Site Protection by Umbrella Plugins ===
+=== Umbrella Antivirus & Hack protection ===
 Contributors: rkjellberg
 Tags: antivirus, site protection, vulnerabilities, core scanner, database, backup, database backup, protection, firewall, vulnerability, vulnerabilities, scanner, file, hide versions, disable pings, captcha, captcha login, secure login, umbrella plugins, block, requests, virusskydd, virus skydd
 Keywords: antivirus, site protection, vulnerabilities, core scanner, database, backup, database backup, protection, firewall, vulnerability, vulnerabilities, scanner, file, hide versions, disable pings, captcha, captcha login, secure login, umbrella plugins, block, requests, virusskydd, virus skydd
 Requires at least: 3.7
-Tested up to: 4.3
-Stable tag: 1.8.4
+Tested up to: 4.6.1
+Stable tag: 1.8.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -15,10 +15,10 @@ With features as vulnerability scanner, core scanner, block suspicious requests,
 Umbrella helps you protect your WordPress site and checks your plugin and themes for known vulnerabilities. More functions are planned and will be launched soon. Please look for updates :)
 
 = Major features in Umbrella include =
-* Vulnerabilities scanner for themes and plugins. 
-* Add CAPTCHA to login screen for a more secure login. 
+* Vulnerabilities scanner for themes and plugins.
+* Add CAPTCHA to login screen for a more secure login.
 * Block all unauthorized and irrelevant requests through query strings.
-* Hide version numbers in your front-end source code for WordPress-core and all of your plugins. 
+* Hide version numbers in your front-end source code for WordPress-core and all of your plugins.
 * Completely turn off trackbacks & pingbacks to your site.
 * Scan WordPress for unknown files and file modifications by comparing md5 strings.
 * Disable Themes & Plugins-editor.
@@ -120,17 +120,17 @@ You will find the 'Site Protection' tab in your WordPress admin panel.
 
 = 1.4.4 =
 *Release Date - 24 April, 2015*
- 
+
 * Core files list database for WordPress 4.2
 
 = 1.4.3 =
 *Release Date - 20 April, 2015*
- 
+
 * Core files list database for WordPress 4.1.2
 
 = 1.4.2 =
 *Release Date - 20 April, 2015*
- 
+
 * Update for WordPress 4.2
 * Bugfix: Conflict when using Captcha login together with the Really Simple Captcha plugin.
 * Real Time Updates: Check for plugin updates each 10 minutes instead of each 12 hours.
@@ -138,13 +138,13 @@ You will find the 'Site Protection' tab in your WordPress admin panel.
 
 = 1.4.1 =
 *Release Date - 19 April, 2015*
- 
+
 * Enable/Disable Automatic Updates for Umbrella Site Protection.
 * Admin notice on plugin updates.
 * Layout: New header in option pages.
 * New assets for plugin pages.
 
-= 1.4 = 
+= 1.4 =
 *Release Date - 18 April, 2015*
 
 * New layout for option pages.
@@ -178,9 +178,9 @@ You will find the 'Site Protection' tab in your WordPress admin panel.
 = 1.1 =
 *Release Date - 1 March, 2015*
 
-* Vulnerabilities scanner for themes and plugins. 
+* Vulnerabilities scanner for themes and plugins.
 * Add CAPTCHA to login screen for a more secure login.
 
 == Frequently Asked Questions ==
 = Does this protect my site from hackers? =
-Yes. 
+Yes.

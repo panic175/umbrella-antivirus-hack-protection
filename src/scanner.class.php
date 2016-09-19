@@ -13,14 +13,14 @@ class Scanner
     public function whitelist()
     {
         $locale = get_locale();
-        $data_file = UMBRELLA__PLUGIN_DIR . "data/wordpress-{$this->wp_version()}.db";
+        $data_file = \Umbrella\Scanner::get_db_file();
 
         $ignored_files = $this->ignored_files();
-      
+
         // Return whitelist as array if found for current WP version.
         if (file_exists($data_file)) {
             $data = parse_ini_file($data_file, true);
-            
+
             if(is_array($ignored_files))
                 return array_merge($data, $ignored_files);
             else
@@ -29,7 +29,14 @@ class Scanner
 
         else
             return false;
-    }   
+    }
+
+
+    public static function get_db_file() {
+        global $wp_version;
+        $version = str_replace('.','', $wp_version);
+        return UMBRElLA__STORAGE_DIR . ".database-{$version}.ini";
+    }
 
     /**
      * Get Ignored Files
@@ -44,14 +51,14 @@ class Scanner
         $ignored_files = get_option('umbrella-sp-ignored-files');
 
           // If option is set, unserialize it into an array.
-        if (!empty($ignored_files)) 
+        if (!empty($ignored_files))
             $ignored_files = unserialize($ignored_files);
 
         if (isset($ignored_files[$wp_version]))
             return $ignored_files[$wp_version];
-        else 
+        else
             return false;
-    }   
+    }
 
     public static function google_safe_browsing_code()
     {
@@ -97,22 +104,22 @@ class Scanner
 
             if ( false === ( $json = get_transient( "umbrella_vulndb_{$slug}" ) ) ) {
                 $json = wp_remote_get( "https://wpvulndb.com/api/v1/plugins/{$slug}" );
-                
+
                 if (!\is_wp_error($json))
                     set_transient( "umbrella_vulndb_{$slug}", $json, 300 );
             }
 
             if (!\is_wp_error($json))
                 $merge = array('vulndb' => $json);
-            else 
+            else
                 $merge['vulndb']['error']['code'] = '501';
-            
-        
+
+
             $plugins[] = array_merge($plugin,$merge);
         }
 
         return $plugins;
-    }  
+    }
 
     /**
      * Plugins Errors
@@ -158,10 +165,10 @@ class Scanner
         {
             unset($merge);
             unset($json);
-            
+
             if ( false === ( $json = get_transient( "umbrella_vulndb_theme_{$slug}" ) ) ) {
                 $json = wp_remote_get( "https://wpvulndb.com/api/v1/themes/{$slug}" );
-                
+
                 if (!\is_wp_error($json))
                     set_transient( "umbrella_vulndb_theme_{$slug}", $json, 300 );
             }
@@ -193,7 +200,7 @@ class Scanner
     public function api_get_files()
     {
         die( json_encode( $this->list_core_files() ) );
-    }       
+    }
 
     /**
      * Reverse Ip
@@ -212,15 +219,15 @@ class Scanner
 
         if (!is_wp_error($data)) {
             $data = explode("\n", $data['body']);
-            
-            if (substr($data[0], 0, 10) == "No records") 
+
+            if (substr($data[0], 0, 10) == "No records")
                 return 0;
         }
-        else 
+        else
             $data = array();
-        
+
         return count($data);
-    }    
+    }
 
     /**
      * Has Cloudflare
@@ -266,7 +273,7 @@ class Scanner
 
         // Get files and directories list.
         $files = new \RecursiveIteratorIterator( new \RecursiveDirectoryIterator( ABSPATH ) );
-        
+
         // new empty output
         $output = array();
 
@@ -278,15 +285,15 @@ class Scanner
             $continue = 0;
             foreach ($exclude as $e)
             {
-                if ( strpos($file, $e) !== false ) 
+                if ( strpos($file, $e) !== false )
                     $continue = 1;
             }
 
-            if ($continue == 0) 
+            if ($continue == 0)
                 $output[] = str_replace(ABSPATH, '', $file);
-            else 
+            else
                 $continue = 1;
-        
+
         }
 
         usort($output, array(&$this, 'sort'));
@@ -305,13 +312,15 @@ class Scanner
      * Get whitelist for the current WP version.
      * @return void
     */
-    public function compare( $file = '' )
+    public function compare( $file_path = '' )
     {
         global $wp_version;
         $whitelist = $this->whitelist();
 
+        $file = str_replace(ABSPATH, '', $file_path);
+
         // File is unknown (not included in core)
-        if (!isset($whitelist[$file])) 
+        if (!isset($whitelist[$file]))
             return "File is not included in core";
 
         $svn_url = "https://core.svn.wordpress.org/tags/{$wp_version}/{$file}";
@@ -337,7 +346,7 @@ class Scanner
     public function check_file( $file = '' )
     {
         $whitelist = $this->whitelist();
-        $file_data = file_get_contents( ABSPATH . $file );
+        $file_path = ABSPATH . $file;
 
         // File is unknown (not included in core)
         if (!isset($whitelist[$file])) {
@@ -348,7 +357,8 @@ class Scanner
             return array(
                 'error' => array('code' => '0010', 'msg' => 'Unexpected file'),
                 'file' => ABSPATH . $file,
-                'md5' => md5($file_data),
+                'file_path' => $file_path,
+                'filesize' => filesize($file_path),
                 'buttons' => array(
                     array(
                         'label' => __('Ignore', UMBRELLA__TEXTDOMAIN),
@@ -359,21 +369,22 @@ class Scanner
 
         }
 
-        $original_md5 = $whitelist[$file];
+        $original_size = $whitelist[$file];
 
-        if (md5($file_data) != $original_md5)
+        if (filesize($file_path) != $original_size)
         {
 
             $ignore_url = "admin.php?page=umbrella-scanner&action=ignore&file={$file}";
             $ignore_nonce_url =  wp_nonce_url( $ignore_url, "ignore_{$file}" );
-            
+
             $compare_url = "#compare-results";
-            
+
             return array(
                 'error' => array('code' => '0020', 'msg' => 'Modified file'),
                 'file' => $file,
-                'md5' => md5($file_data),
-                'original_md5' => $original_md5,
+                'file_path' => $file_path,
+                'filesize' => filesize($file_path),
+                'original_filesize' => $original_size,
                 'buttons' => array(
                     array(
                         'label' => __('Ignore', UMBRELLA__TEXTDOMAIN),
@@ -386,7 +397,7 @@ class Scanner
                 )
             );
         }
-           
+
     }
 
     /**
@@ -422,27 +433,25 @@ class Scanner
     */
     public function ignore_file($file)
     {
-        $wp_version = $this->wp_version();
 
+        $wp_version = $this->wp_version();
         $file = esc_attr($file);
+        $file_path = ABSPATH . $file;
 
         // Get ignored files.
         $ignored_files = $this->ignored_files();
 
-        // Read file data.
-        $file_data = file_get_contents(ABSPATH . $file);
-
         // Get md5 checksum.
-        $md5 = md5($file_data);
+        $filesize = filesize($file_path);
 
         // Add string and md5.
-        $ignored_files[$file] = $md5;
+        $ignored_files[$file] = $filesize;
 
         $option[$wp_version] = $ignored_files;
 
         // Add new file top option cache.
         update_option('umbrella-sp-ignored-files', serialize($option));
-    }    
+    }
 
     /**
      * WP Version
@@ -453,55 +462,90 @@ class Scanner
     {
         global $wp_version;
         return str_replace('.','', $wp_version);
-    }  
+    }
+
+    /**
+     * Download core tree
+     * Download file sizes from github commit
+     * @return json
+    */
+
+    public function download_core_tree() {
+        global $wp_version;
+
+        try {
+            // Download tags list
+            $tags_list = wp_remote_get('https://api.github.com/repos/WordPress/WordPress/tags', array( 'timeout' => 60));
+            $tags_list = json_decode($tags_list['body']);
+
+            foreach($tags_list as $version) {
+                if ($version->name == $wp_version) {
+                    $commit_info = wp_remote_get($version->commit->url, array( 'timeout' => 60));
+                    $commit_info = json_decode($commit_info['body']);
+
+                    $tree = wp_remote_get($commit_info->commit->tree->url . '?recursive=1', array( 'timeout' => 60));
+                    return json_decode($tree['body']);
+                }
+            }
+            return FALSE;
+        }
+        catch (\Exception $e) {
+            return FALSE;
+        }
+    }
 
     /**
      * Build Core List
      * Get md5 checksums and build core list db file.
      * @return void
     */
-    public function build_core_list()
-    {
-        $data_file = UMBRELLA__PLUGIN_DIR . "data/wordpress-{$this->wp_version()}.db";
-        $files = $this->list_core_files();
 
+    public function build_core_list() {
+        global $wp_version;
 
-        usort($files, function($a,$b) {
-            return strlen($a)-strlen($b);
-        });
+        $data_list = array();
+        $data_file = \Umbrella\Scanner::get_db_file();
 
-        $output = array();
-
-        foreach($files as $f) {
-
-            $file = ABSPATH . $f;
-
-            if (file_exists($file)) {
-
-                $contents = file_get_contents($file);
-                $md5_checksum = md5($contents);
-
-                $output[$f] = $md5_checksum;
-            }
+        if (file_exists($data_file)) {
+            return;
         }
 
-        $output = arr2ini($output);
-
-        if (!file_exists($data_file)) {
-            file_put_contents($data_file, $output);
-            echo "write ok";
+        // Get any existing copy of our transient data
+        if ( false === ( $core_tree_list = get_transient( 'core_tree_list_' . $wp_version ) ) ) {
+            // It wasn't there, so regenerate the data and save the transient
+            $core_tree_list = $this->download_core_tree();
+            set_transient( 'core_tree_list_' . $wp_version, $core_tree_list, 1 * 60 );
         }
+
+        if (!$core_tree_list)
+            return false;
+
+        foreach ($core_tree_list->tree as $file) {
+            $data_list[$file->path] = $file->size;
+        }
+
+        $output = arr2ini($data_list);
+
+        file_put_contents($data_file, $output);
     }
 
-} 
-
+}
 
 add_action( 'wp_ajax_umbrella_compare_file', function() {
 
     $scanner = new Scanner();
     $output = $scanner->compare($_POST['file_path']);
     die($output);
-    
+
+} );
+
+
+add_action( 'wp_ajax_umbrella_build_core_list', function() {
+
+    $scanner = new Scanner();
+    $scanner->build_core_list();
+    die(json_encode(array('status' => 'ok')));
+
 } );
 
 
@@ -515,8 +559,10 @@ add_action( 'wp_ajax_umbrella_filescan', function() {
     $output = array();
     foreach ($files as $file)
     {
-        if ($scanner->check_file($file))
-            $output[] = array('file' => $file, 'response' => $scanner->check_file($file));
+        if ($scanner->check_file($file)) {
+            $response = $scanner->check_file($file);
+            $output[] = array('file' => $file, 'response' => $response, 'file_path' => $response['file_path']);
+        }
     }
 
     // Cache scan for 30 minutes.
@@ -530,10 +576,10 @@ add_action( 'wp_ajax_umbrella_filescan', function() {
 add_action('admin_init', function() {
 
     if (current_user_can('administrator')
-        AND isset($_GET['page']) 
-        AND $_GET['page'] == 'umbrella-scanner' 
+        AND isset($_GET['page'])
+        AND $_GET['page'] == 'umbrella-scanner'
     ){
-        if (isset($_GET['action'])) 
+        if (isset($_GET['action']))
         {
             $scanner = new Scanner;
 
@@ -542,8 +588,8 @@ add_action('admin_init', function() {
                 case 'remove'; $scanner->remove_file($_GET['file']); break;
                 case 'ignore'; $scanner->ignore_file($_GET['file']); break;
                 case 'get_files'; $scanner->api_get_files(); break;
-                case 'check_file'; 
-                    echo json_encode($scanner->check_file($_GET['file'])); 
+                case 'check_file';
+                    echo json_encode($scanner->check_file($_GET['file']));
                     die();
                 break;
             }

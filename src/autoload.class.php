@@ -47,10 +47,6 @@ class Autoload
 
 		// Check if storage directory exists.
 		$this->checkStorageDir();
-
-		// Developer Debugging
-		// $scanner = new Scanner;
-		// $scanner->build_core_list();
 	}
 
 	/**

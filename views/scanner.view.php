@@ -1,4 +1,4 @@
-<?php 
+<?php
 if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 Umbrella\Controller::header($data); ?>
 <h2><?php _e('Core Scanner', UMBRELLA__TEXTDOMAIN); ?></h2>
@@ -27,19 +27,19 @@ Umbrella\Controller::header($data); ?>
 ?>>
 	<thead>
 		<tr>
-			<th style="width:120px;"><?php _e('Error', UMBRELLA__TEXTDOMAIN); ?></th>
+			<th><?php _e('Error', UMBRELLA__TEXTDOMAIN); ?></th>
 			<th><?php _e('File path', UMBRELLA__TEXTDOMAIN); ?></th>
-			<th><?php _e('md5 checksum', UMBRELLA__TEXTDOMAIN); ?></th>
-			<th style="width:300px;"><?php _e('Action', UMBRELLA__TEXTDOMAIN); ?></th>
+			<th><?php _e('File size', UMBRELLA__TEXTDOMAIN); ?></th>
+			<th><?php _e('Action', UMBRELLA__TEXTDOMAIN); ?></th>
 		</tr>
 	</thead>
 
 	<tfoot>
 		<tr>
-			<th style="width:120px;"><?php _e('Error', UMBRELLA__TEXTDOMAIN); ?></th>
+			<th><?php _e('Error', UMBRELLA__TEXTDOMAIN); ?></th>
 			<th><?php _e('File path', UMBRELLA__TEXTDOMAIN); ?></th>
-			<th><?php _e('md5 checksum', UMBRELLA__TEXTDOMAIN); ?></th>
-			<th style="width:300px;"><?php _e('Action', UMBRELLA__TEXTDOMAIN); ?></th>
+			<th><?php _e('File size', UMBRELLA__TEXTDOMAIN); ?></th>
+			<th><?php _e('Action', UMBRELLA__TEXTDOMAIN); ?></th>
 		</tr>
 	</tfoot>
 
@@ -50,9 +50,9 @@ Umbrella\Controller::header($data); ?>
 				<strong><?php echo esc_attr($file['response']['error']['msg']); ?></strong><br>
 				<small>#<?php echo esc_attr($file['response']['error']['code']); ?></small>
 			</td>
-			<td class='file_path'><?php echo esc_attr($file['file']); ?></td>
+			<td class='file_path'><?php echo esc_attr($file['file_path']); ?></td>
 			<td>
-			<?php echo esc_attr($file['response']['md5']); ?>
+			<?php echo esc_attr($file['response']['filesize']); ?>
 			</td>
 			<td>
 				<?php foreach($file['response']['buttons'] as $btn): ?>
@@ -72,7 +72,7 @@ Umbrella\Controller::header($data); ?>
 	<h5 id="file_path_header"></h5>
 	<div class="revisions-diff-frame">
 		<div class="revisions-diff">
-			<div class="diff">	
+			<div class="diff">
 
 			<table class="diff">
 				<tr>
