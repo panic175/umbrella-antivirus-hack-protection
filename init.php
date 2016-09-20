@@ -1,5 +1,5 @@
 <?php
-/*
+/**
  * Plugin Name: Umbrella Antivirus & Hack protection
  * Plugin URI: https://www.umbrellaantivirus.com
  * Description: WordPress Antivirus and Hack protection. With features as vulnerability scanner, file scanner, hide versions, disable pings, captcha login and more.
@@ -9,7 +9,10 @@
  * Text Domain: umbrella-antivirus-hack-protection
  * Domain Path: /languages
 */
-if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
+
+if ( ! defined( 'ABSPATH' ) ) {
+	exit; // Exit if accessed directly!
+}
 
 $up_dir = wp_upload_dir();
 
@@ -25,17 +28,17 @@ define( 'UMBRElLA__STORAGE_URL', $up_dir['baseurl'] . '/umbrella/' );
 define( 'UMBRELLA__TEXTDOMAIN', 'umbrella-antivirus-hack-protection' );
 
 function umbrella_plugin_init() {
-    load_plugin_textdomain( UMBRELLA__TEXTDOMAIN, false, UMBRELLA__TEXTDOMAIN . '/languages' );
+	load_plugin_textdomain( UMBRELLA__TEXTDOMAIN, false, UMBRELLA__TEXTDOMAIN . '/languages' );
 }
 
-add_action('init', 'umbrella_plugin_init');
+add_action( 'init', 'umbrella_plugin_init' );
 
-// Include all libraries (third-party classes)
+// Include all libraries (third-party classes).
 require_once( UMBRELLA__PLUGIN_DIR . 'lib/whois.lib.php' );
 require_once( UMBRELLA__PLUGIN_DIR . 'lib/diff.lib.php' );
 require_once( UMBRELLA__PLUGIN_DIR . 'lib/really-simple-captcha/really-simple-captcha.php' );
 
-// Include source files
+// Include source files.
 require_once( UMBRELLA__PLUGIN_DIR . 'src/scanner.class.php' );
 require_once( UMBRELLA__PLUGIN_DIR . 'src/logging.class.php' );
 require_once( UMBRELLA__PLUGIN_DIR . 'src/modules.class.php' );
@@ -43,5 +46,5 @@ require_once( UMBRELLA__PLUGIN_DIR . 'src/backup.class.php' );
 require_once( UMBRELLA__PLUGIN_DIR . 'src/controller.class.php' );
 require_once( UMBRELLA__PLUGIN_DIR . 'src/autoload.class.php' );
 
-// Run the autoloader
+// Run the autoloader.
 new Umbrella\Autoload();
