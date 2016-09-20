@@ -8,7 +8,9 @@
  * Author URI: https://www.umbrellaantivirus.com
  * Text Domain: umbrella-antivirus-hack-protection
  * Domain Path: /languages
-*/
+ * License: GPL
+ * Copyright: Rasmus Kjellberg
+ */
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly!
@@ -27,6 +29,12 @@ define( 'UMBRElLA__STORAGE_DIR', $up_dir['basedir'] . '/umbrella/' );
 define( 'UMBRElLA__STORAGE_URL', $up_dir['baseurl'] . '/umbrella/' );
 define( 'UMBRELLA__TEXTDOMAIN', 'umbrella-antivirus-hack-protection' );
 
+/**
+ * Plugin Init
+ * Load WordPress text domain for translation.
+ *
+ * @since 1.8.5
+ */
 function umbrella_plugin_init() {
 	load_plugin_textdomain( UMBRELLA__TEXTDOMAIN, false, UMBRELLA__TEXTDOMAIN . '/languages' );
 }

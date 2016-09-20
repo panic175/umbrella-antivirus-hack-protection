@@ -10,7 +10,7 @@ class Autoload
 	/**
 	 * Autoload Helper
 	 * This will init the plugin and autoload files.
-	 * @return void
+	 * @return N/A
 	*/
 	function __construct() {
 		$this->autoload();
@@ -19,7 +19,7 @@ class Autoload
 	/**
 	 * Load hooks
 	 * This will load everything :)
-	 * @return void
+	 * @return N/A
 	*/
 	public function autoload() {
 
@@ -49,7 +49,7 @@ class Autoload
 	/**
 	 * Init
 	 * This function will run when WordPress calls the hook "init".
-	 * @return void
+	 * @return N/A
 	*/
 	public function init() {
 		add_action('wp_ajax_validate_key', array('\Umbrella\Controller', 'ajax_validate_key'));
@@ -59,7 +59,7 @@ class Autoload
 	/**
 	 * Check storage directory
 	 * This function will create your storage directory if it dont exist.
-	 * @return void
+	 * @return N/A
 	*/
 	public function checkStorageDir() {
 
@@ -78,7 +78,7 @@ class Autoload
 	/**
 	 * Latest Version
 	 * Get the latest available version number of this plugin.
-	 * @return void
+	 * @return N/A
 	*/
 	public function latest_version() {
 
@@ -98,7 +98,7 @@ class Autoload
 	 * Check for updates
 	 * Check for updates and update if found.
 	 * @since 1.4.1
-	 * @return void
+	 * @return N/A
 	*/
 	public function check_for_updates() {
 
@@ -169,7 +169,7 @@ class Autoload
 	/**
 	 * Plugins Loaded
 	 * This function will run when WordPress calls the hook "plugins_loaded".
-	 * @return void
+	 * @return N/A
 	*/
 	public function plugins_loaded() {
 
@@ -178,7 +178,7 @@ class Autoload
 	/**
 	 * Admin Notices
 	 * This function will run when WordPress calls the hook "admin_notices".
-	 * @return void
+	 * @return N/A
 	*/
 	public function admin_notices() {
 
@@ -220,7 +220,8 @@ class Autoload
 	/**
 	 * Admin Init
 	 * This function will run when WordPress calls the hook "admin_init".
-	 * @return void
+	 *
+	 * @return N/A
 	*/
 	public function admin_init() {
 
@@ -231,7 +232,7 @@ class Autoload
 	/**
 	 * Admin Menu
 	 * This function will run when WordPress calls the hook "admin_menu".
-	 * @return void
+	 * @return N/A
 	*/
 	public function admin_menu() {
 		add_menu_page( __('Site Protection', UMBRELLA__TEXTDOMAIN), __('Site Protection', UMBRELLA__TEXTDOMAIN), 'administrator', 'umbrella-site-protection', array('Umbrella\controller', 'dashboard') , 'dashicons-shield', 3 );
@@ -246,7 +247,7 @@ class Autoload
 	/**
 	 * Load Modules
 	 * This will load all activated modules
-	 * @return void
+	 * @return N/A
 	*/
 	public function load_modules() {
 
