@@ -49,6 +49,7 @@ require_once( UMBRELLA__PLUGIN_DIR . 'lib/diff.lib.php' );
 require_once( UMBRELLA__PLUGIN_DIR . 'lib/really-simple-captcha/really-simple-captcha.php' );
 
 // Include source files.
+require_once( UMBRELLA__PLUGIN_DIR . 'src/api.class.php' );
 require_once( UMBRELLA__PLUGIN_DIR . 'src/scanner.class.php' );
 require_once( UMBRELLA__PLUGIN_DIR . 'src/logging.class.php' );
 require_once( UMBRELLA__PLUGIN_DIR . 'src/modules.class.php' );

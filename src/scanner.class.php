@@ -1,6 +1,9 @@
 <?php
 namespace Umbrella;
-if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
+
+if ( ! defined( 'ABSPATH' ) ) {
+    exit; // Exit if accessed directly!
+}
 
 class Scanner
 {
@@ -8,6 +11,7 @@ class Scanner
     /**
      * Get Whitelist
      * Get whitelist for the current WP version.
+     *
      * @return void
     */
     public function whitelist()
@@ -467,36 +471,6 @@ class Scanner
     }
 
     /**
-     * Download core tree
-     * Download file sizes from github commit
-     * @return json
-    */
-
-    public function download_core_tree() {
-        global $wp_version;
-
-        try {
-            // Download tags list
-            $tags_list = wp_remote_get('https://api.github.com/repos/WordPress/WordPress/tags', array( 'timeout' => 60));
-            $tags_list = json_decode($tags_list['body']);
-
-            foreach($tags_list as $version) {
-                if ($version->name == $wp_version) {
-                    $commit_info = wp_remote_get($version->commit->url, array( 'timeout' => 60));
-                    $commit_info = json_decode($commit_info['body']);
-
-                    $tree = wp_remote_get($commit_info->commit->tree->url . '?recursive=1', array( 'timeout' => 60));
-                    return json_decode($tree['body']);
-                }
-            }
-            return FALSE;
-        }
-        catch (\Exception $e) {
-            return FALSE;
-        }
-    }
-
-    /**
      * Build Core List
      * Get md5 checksums and build core list db file.
      * @return void
@@ -505,32 +479,35 @@ class Scanner
     public function build_core_list() {
         global $wp_version;
 
-        $data_list = array();
+        $input = array();
         $data_file = \Umbrella\Scanner::get_db_file();
 
         if (file_exists($data_file)) {
-            return;
+            return true;
         }
 
         // Get any existing copy of our transient data
         if ( false === ( $core_tree_list = get_transient( 'core_tree_list_' . $wp_version ) ) ) {
             // It wasn't there, so regenerate the data and save the transient
-            $core_tree_list = $this->download_core_tree();
+            $core_tree_list = API::download_core_tree();
             set_transient( 'core_tree_list_' . $wp_version, $core_tree_list, 1 * 60 );
         }
 
-        if (!$core_tree_list)
-            return false;
+        if ( isset( $core_tree_list ) and is_array( $core_tree_list ) ) {
+            foreach( $core_tree_list as $file ) {
+                $input[$file->file] = $file->size;
+            }
 
-        foreach ($core_tree_list->tree as $file) {
-            if (!isset($file->size))
-                continue; // Continue if not a file (because then it's a directory)
-            $data_list[$file->path] = $file->size;
+            $input = arr2ini($input);
+            file_put_contents($data_file, $input);
         }
 
-        $output = arr2ini($data_list);
+        if ( file_exists ( $data_file ) ) {
+            return true;
+        } else {
+            return false;
+        }
 
-        file_put_contents($data_file, $output);
     }
 
 }
