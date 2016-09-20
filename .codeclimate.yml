@@ -1,6 +1,12 @@
 engines:
+  phpmd:
+    enabled: true
   csslint:
     enabled: true
+  phpcodesniffer:
+    enabled: true
+    config:
+      standard: "WordPress"
   duplication:
     enabled: true
     config:
