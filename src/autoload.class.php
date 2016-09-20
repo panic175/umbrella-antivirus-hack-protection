@@ -64,13 +64,13 @@ class Autoload
 	public function checkStorageDir() {
 
 	    // Create a folder in the Uploads Directory of WordPress to store Umbrella Files
-	    if (!file_exists(UMBRElLA__STORAGE_DIR)) {
-	        mkdir(UMBRElLA__STORAGE_DIR, 0775, true);
+	    if (!file_exists(UMBRELLA__STORAGE_DIR)) {
+	        mkdir(UMBRELLA__STORAGE_DIR, 0775, true);
 	    }
 
 	    // Create index.html to prevent file listing.
-	    if (!file_exists(UMBRElLA__STORAGE_DIR . 'index.html')) {
-	    	touch(UMBRElLA__STORAGE_DIR . 'index.html');
+	    if (!file_exists(UMBRELLA__STORAGE_DIR . 'index.html')) {
+	    	touch(UMBRELLA__STORAGE_DIR . 'index.html');
 	    }
 
 	}
@@ -84,12 +84,12 @@ class Autoload
 
 		$updates = get_site_transient('update_plugins');
 
-		if (isset($updates->response['umbrella-antivirus-hack-protection/init.php']))
-		{
+		if (isset($updates->response['umbrella-antivirus-hack-protection/init.php'])) {
 			$latest_version = $updates->response['umbrella-antivirus-hack-protection/init.php']->new_version;
 		}
-		else
+		else {
 			$latest_version = UMBRELLA__VERSION;
+		}
 
 		return $latest_version;
 	}
@@ -126,9 +126,7 @@ class Autoload
 	public function filter_auto_update_plugin( $update, $item ) {
 
 		// Array of plugin slugs to always auto-update
-	    $plugins = array (
-	        'umbrella-antivirus-hack-protection'
-	    );
+	    $plugins = array( 'umbrella-antivirus-hack-protection' );
 
 	    if ( in_array( $item->slug, $plugins ) ) {
 	        return true; // Always update plugins in this array
@@ -182,37 +180,28 @@ class Autoload
 	*/
 	public function admin_notices() {
 
+		// @todo: Fix activation form when reached 5.000 users.
+		// if (false === get_option( 'umbrella_hide_activation_form' ) AND
+		// 	false === get_transient( 'umbrella_hide_activation_form' ) ) {
+		// 	require_once( UMBRELLA__PLUGIN_DIR . 'views/partials/register-alert.view.php' );
+		// }
+
+		// Version updates.
+		if (defined('UMBRELLA_SP_UPDATE_AVAILABLE') AND !isset($_GET['action'])) {
+			$update_file = 'umbrella-antivirus-hack-protection/init.php';
+			$url = wp_nonce_url(
+						self_admin_url( 'update.php?action=upgrade-plugin&plugin=' . $update_file ),
+						'upgrade-plugin_' . $update_file
+					);
+
+			// Include alert view.
+			require_once( UMBRELLA__PLUGIN_DIR . 'views/partials/_has_update_alert.view.php' );
+		}
+
+		// Log entries.
 		$logs = Log::counter();
-
-		// Version updates
-		if (defined('UMBRELLA_SP_UPDATE_AVAILABLE')):
-
-			if (!isset($_GET['action'])) {
-				$update_file = 'umbrella-antivirus-hack-protection/init.php';
-				$url = wp_nonce_url(self_admin_url('update.php?action=upgrade-plugin&plugin=' . $update_file), 'upgrade-plugin_' . $update_file);
-		?>
-	 	<div class="error umbrella">
-	     	<a href="<?php echo esc_url($url); ?>" class="button button-primary" style="float:right;margin-top: 3px;"><?php _e( 'Update Now', UMBRELLA__TEXTDOMAIN ); ?></a>
-	        <p>
-	        	<a href="admin.php?page=umbrella-site-protection"><strong><?php _e( 'Site Protection', UMBRELLA__TEXTDOMAIN ); ?></strong></a>:
-	        	<?php printf( __( 'A new version of Umbrella Site Protection is available: <strong>%s</strong>. Please update now for better protection.', UMBRELLA__TEXTDOMAIN ), UMBRELLA_SP_UPDATE_AVAILABLE); ?>
-	    	</p>
-	    </div>
-		<?php
-			}
-		endif;
-
-		// Log entries
 		if ($logs > 0 AND get_option('umbrella_sp_disable_notices') != 1):
-		?>
-	    <div class="error umbrella">
-	     	<a href="admin.php?page=umbrella-sp-logging" class="button button-primary" style="float:right;margin-top: 3px;"><?php _e( 'View logs', UMBRELLA__TEXTDOMAIN ); ?></a>
-	        <p>
-	        	<a href="admin.php?page=umbrella-sp-logging"><strong><?php _e( 'Site Protection', UMBRELLA__TEXTDOMAIN ); ?></strong></a>:
-	        	<?php printf( __( 'You have <strong>%d</strong> unread log message(s).', UMBRELLA__TEXTDOMAIN ), $logs); ?>
-	    	</p>
-	    </div>
-	    <?php
+			require_once( UMBRELLA__PLUGIN_DIR . 'views/partials/_log_notices_alert.view.php' );
 		endif;
 
 	}
@@ -224,9 +213,10 @@ class Autoload
 	 * @return N/A
 	*/
 	public function admin_init() {
-
-		//register our settings
-		register_setting( 'umbrella-settings', 'umbrella_load_modules', array('Umbrella\Modules', 'validate_modules') );
+		register_setting(
+			'umbrella-settings', 'umbrella_load_modules',
+			array( 'Umbrella\Modules', 'validate_modules' )
+		);
 	}
 
 	/**
