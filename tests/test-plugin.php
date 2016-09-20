@@ -23,4 +23,5 @@ class PluginTest extends WP_UnitTestCase {
     $plugin_data = get_plugin_data( PLUGIN_ABSOLUTE_PATH, false, false );
     $this->assertTrue( UMBRELLA__VERSION==$plugin_data['Version'] );
   }
+
 }

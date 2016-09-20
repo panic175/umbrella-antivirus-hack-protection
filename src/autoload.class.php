@@ -42,9 +42,6 @@ class Autoload
 		// Check for updates of this plugin
 		$this->check_for_updates();
 
-		// Sync With Umbrella Network
-		$this->network_sync();
-
 		// Check if storage directory exists.
 		$this->checkStorageDir();
 	}
@@ -118,51 +115,6 @@ class Autoload
 	            'filter_auto_update_plugin'
 	        ), 10, 2);
 		}
-	}
-
-	/**
-	 * Network Sync
-	 * @since 1.6
-	 * @return void
-	*/
-	public function network_sync() {
-
-		$transient = get_transient( 'umbrella_sp_sync' );
-
-		if( ! empty( $transient ) )
-			return false;
-
-	    set_transient( 'umbrella_sp_sync', 1, 3600 );
-
-		global $wp_version;
-
-		// Get web server
-		$server_software = $_SERVER['SERVER_SOFTWARE'];
-		$server_software = explode(' ', $server_software);
-		$server_software = $server_software[0];
-
-		$data = array();
-		$data['core']['version'] = $wp_version;
-		$data['core']['language'] = get_locale();
-
-		$data['plugin']['version'] = UMBRELLA__VERSION;
-		$data['plugin']['auto_updates'] = (get_option('umbrella_sp_disable_auto_updates')) ? false : true;
-		$data['plugin']['modules'] = Modules::valid_modules_slugs();
-		$data['plugin']['log_entries'] = Log::counter(true);
-
-		$data['system']['php_version'] = phpversion();
-		$data['system']['server_version'] = $server_software;
-
-		$url = 	'https://network.umbrellaplugins.com/api/sync' .
-				'?site_url=' . site_url() .
-				'&data=' . urlencode(json_encode($data));
-
-		$response = wp_remote_get( $url );
-
-		if ( is_wp_error($response) ){
-			$is_valid = true;
-		}
-
 	}
 
 	/**

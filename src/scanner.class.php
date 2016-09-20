@@ -398,6 +398,8 @@ class Scanner
             );
         }
 
+        return false;
+
     }
 
     /**
@@ -521,6 +523,8 @@ class Scanner
             return false;
 
         foreach ($core_tree_list->tree as $file) {
+            if (!isset($file->size))
+                continue; // Continue if not a file (because then it's a directory)
             $data_list[$file->path] = $file->size;
         }
 
