@@ -25,7 +25,26 @@ class API {
 	 *
 	 * @var string
 	 */
-	private static $api_base = 'http://api.umbrellaantivirus.com/api/v1.0/';
+	private static $api_base = 'https://api.umbrellaantivirus.com/api/';
+
+	/**
+	 * UmbrellaAntivirus API version
+	 *
+	 * @var integer
+	 */
+	private static $api_version = '1.0';
+
+
+	/**
+	 * API URL
+	 * Returns API url
+	 *
+	 * @return string
+	 */
+	public static function api_url() {
+		return trailingslashit( self::$api_base . 'v' . self::$api_version );
+	}
+
 
 	/**
 	 * Download Core Tree
@@ -37,9 +56,9 @@ class API {
 		global $wp_version;
 
 		try {
-			$response = wp_remote_get( self::$api_base . 'corelists/download?wp_version=' . $wp_version );
+			$response = wp_remote_get( self::api_url() . 'corelists/download?wp_version=' . $wp_version );
 
-			if ( ! is_array( $response ) || ! isset( $response['body'] ) ) {
+			if ( is_wp_error( $response ) || ! isset( $response['body'] ) ) {
 				return false; // Return false if error!
 			}
 
