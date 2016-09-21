@@ -25,7 +25,7 @@ class API {
 	 *
 	 * @var string
 	 */
-	private static $api_base = 'https://api.umbrellaantivirus.com/api/';
+	private static $api_base = 'http://api.umbrellaantivirus.com/api/';
 
 	/**
 	 * UmbrellaAntivirus API version
@@ -33,7 +33,6 @@ class API {
 	 * @var integer
 	 */
 	private static $api_version = '1.0';
-
 
 	/**
 	 * API URL
@@ -44,7 +43,6 @@ class API {
 	public static function api_url() {
 		return trailingslashit( self::$api_base . 'v' . self::$api_version );
 	}
-
 
 	/**
 	 * Download Core Tree
