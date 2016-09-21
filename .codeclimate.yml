@@ -1,6 +1,4 @@
 engines:
-  phpmd:
-    enabled: true
   csslint:
     enabled: true
   phpcodesniffer:
