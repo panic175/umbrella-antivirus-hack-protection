@@ -20,7 +20,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 $up_dir = wp_upload_dir();
 
-define( 'UMBRELLA__VERSION', '2.0.0' );
+define( 'UMBRELLA__VERSION', '2.0' );
 define( 'UMBRELLA__PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 define( 'UMBRELLA__PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 define( 'UMBRELLA__STORAGE_DIR', $up_dir['basedir'] . '/umbrella/' );
