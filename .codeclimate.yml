@@ -14,12 +14,9 @@ engines:
       - css
 ratings:
   paths:
-  - css/**
-  - src/**
-  - views/**
-  - js/**
+  - app/**/*
   - "**.php"
 exclude_paths:
-- bin/**/*
-- test/**/*
-- lib/**/*
+- bin/**
+- test/**
+- app/lib/**
