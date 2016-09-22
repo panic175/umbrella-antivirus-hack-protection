@@ -18,22 +18,25 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly!
 }
 
-$up_dir = wp_upload_dir();
-
 define( 'UMBRELLA__VERSION', '2.0' );
 define( 'UMBRELLA__PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 define( 'UMBRELLA__PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
-define( 'UMBRELLA__STORAGE_DIR', $up_dir['basedir'] . '/umbrella/' );
-define( 'UMBRELLA__STORAGE_URL', $up_dir['baseurl'] . '/umbrella/' );
 
 /**
- * Plugin Init
+ * Localization
  * Load WordPress text domain for translation.
  *
- * @since 1.8.5
+ * @since 2.0.0
  */
 function umbrella_plugin_init() {
-	load_plugin_textdomain( UMBRELLA__TEXTDOMAIN, false, UMBRELLA__TEXTDOMAIN . '/languages' );
+	load_plugin_textdomain( 'umbrella-antivirus', false,  UMBRELLA__PLUGIN_DIR . '/config/locales' );
 }
 
 add_action( 'init', 'umbrella_plugin_init' );
+
+// Require helpers for paths within plugin.
+require_once( UMBRELLA__PLUGIN_DIR . 'app/helpers/paths.php' );
+
+// Require bootstrap (load files and init plugin).
+require_once( Umbrella\app_file( 'bootstrap.php' ) );
+

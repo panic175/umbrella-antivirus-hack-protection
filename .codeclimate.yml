@@ -19,4 +19,4 @@ ratings:
 exclude_paths:
 - bin/**
 - test/**
-- app/lib/**
+- vendor/**
