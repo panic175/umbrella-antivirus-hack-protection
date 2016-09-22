@@ -28,7 +28,7 @@ class Scanner extends UmbrellaAntivirus {
 	 * @since 2.0
 	 * @var array
 	 */
-	protected $autoload = array( 'admin_menu' );
+	protected $autoload = array( 'admin_menu', 'wp_ajax_init_scanner' );
 
 	/**
 	 * Admin Menu
@@ -44,5 +44,17 @@ class Scanner extends UmbrellaAntivirus {
 	 */
 	public function admin_page_view() {
 		$this->render( 'scanner' );
+	}
+
+	/**
+	 * AJAX: Full scan
+	 * Initializes a full scan.
+	 */
+	public function wp_ajax_init_scanner() {
+		$this->only_admin(); // Die if not admin.
+
+		$steps = apply_filters( 'umbrella-scanner-steps', array() );
+
+		$this->render_json( array( 'steps' => $steps ) );
 	}
 }

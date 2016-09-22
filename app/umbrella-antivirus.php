@@ -138,6 +138,7 @@ class UmbrellaAntivirus {
 		// Enqueue angular to all views.
 		wp_enqueue_script( 'angular', vendor_url( 'angular/angular.min.js' ) );
 		wp_enqueue_script( 'umbrella-antivirus', assets_url( 'js/umbrella-antivirus.js' ) );
+		wp_enqueue_script( 'umbrella-scanner', assets_url( 'js/scanner.js' ) );
 		wp_enqueue_script( 'umbrella-vulnerability-scanner', assets_url( 'js/vulnerability-scanner.js' ) );
 
 		// Enqueue font-awesome.
@@ -164,7 +165,7 @@ class UmbrellaAntivirus {
 	 * @param string $data Data that should be passed to JSON.
 	 */
 	function render_json( $data ) {
-		header('Content-Type: application/json');
+		header( 'Content-Type: application/json' );
 		echo json_encode( $data );
 		wp_die(); // this is required to terminate immediately and return a proper response.
 	}
