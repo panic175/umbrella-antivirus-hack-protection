@@ -1,6 +1,6 @@
-<h2>Scanner</h2>
 <div id="scanner" ng-controller="umbrellaScanner">
-	<a href="#" class="button">Start scan</a>
+	<h2>Scanner</h2>
+	<a href="#" class="button button-primary">Start scan</a>
 	<ul id="scanner__steps">
 		<li>Scanning core files <span>0%</span></li>
 		<li>Scanning plugins &amp; themes for known vulnerabilites <span>0%</span></li>

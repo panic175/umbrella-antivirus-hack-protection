@@ -1,29 +1,20 @@
 <div id="umbrella" class="wrap" ng-app="UmbrellaAntivirus">
-<div id="umbrella__navbar">
-	<ul>
-		<li class="active">
-			<a href="admin.php?page=umbrella-antivirus">
-				<span>
-					<i class="fa fa-home"></i>
-					Dashboard
-				</span>
-			</a>
-		</li>
+<h1>Umbrella Antivirus &amp; Hack protection</h1>
+<div class="wp-filter">
+	<ul class="filter-links">
+		<?php foreach( $navigation_links as $link ): ?>
 		<li>
-			<a href="admin.php?page=vulnerability-scanner">
-				<span>
-					<i class="fa fa-puzzle-piece"></i>
-					Plugin &amp; Themes
-				</span>
+			<a
+			href="admin.php?page=<?php echo esc_attr( $link['screen'] ); ?>"
+			class="<?php
+				if ( isset( $_GET['page'] ) and $link['screen'] == $_GET['page']) {
+					echo 'current';
+				}
+			?>">
+				<i class="<?php echo esc_attr( $link['icon'] ); ?>"></i>
+				<?php echo esc_attr( $link['title'] ); ?>
 			</a>
 		</li>
-		<li>
-			<a href="admin.php?page=scanner">
-				<span>
-					<i class="fa fa-search"></i>
-					Scanner
-				</span>
-			</a>
-		</li>
+		<?php endforeach;?>
 	</ul>
 </div>

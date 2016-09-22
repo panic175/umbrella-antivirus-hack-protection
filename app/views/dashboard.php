@@ -1,1 +1,1 @@
-<h2 class="umbrella__header">Dashboard</h2>
+<h2>Dashboard</h2>

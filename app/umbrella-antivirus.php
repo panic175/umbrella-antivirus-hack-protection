@@ -47,7 +47,7 @@ class UmbrellaAntivirus {
 	 *
 	 * @since 2.0
 	 */
-	public function autoload() {
+	function autoload() {
 
 		// Loop trough hooks and add actions for those who have declared methods.
 		foreach ( $this->autoload as $hook ) {
@@ -64,7 +64,7 @@ class UmbrellaAntivirus {
 	 *
 	 * @since 2.0
 	 */
-	public function admin_menu() {
+	function admin_menu() {
 
 		add_menu_page(
 			__( 'Umbrella', 'umbrella-antivirus' ),
@@ -83,9 +83,10 @@ class UmbrellaAntivirus {
 	 * @since 2.0
 	 * @param string $menu_name Name displayed in admin menu.
 	 * @param string $method_name The method that should be called in subclass.
+	 * @param string $icon Font awesome icon class.
 	 * @param string $slug_name Force slug to something else (optional).
 	 */
-	public function add_submenu( $menu_name, $method_name, $slug_name = null ) {
+	function add_submenu( $menu_name, $method_name, $icon, $slug_name = null ) {
 
 		// Auto generate a slug from $menu_name if no custom slug is set.
 		if ( ! isset( $slug_name ) ) {
@@ -101,6 +102,25 @@ class UmbrellaAntivirus {
 			array( $this, $method_name )
 		);
 
+		// Add link to header template navigation.
+		$this->navlink = array(
+			'title' => $menu_name,
+			'icon' => $icon,
+			'screen' => $slug_name,
+		);
+
+		// Add link to header template navigation.
+		add_filter( 'umbrella-navigation-links', array( $this, 'add_navigation_link' ) );
+	}
+
+	/**
+	 * Add link to header template navigation.
+	 *
+	 * @param array $navigation Default navigation array.
+	 */
+	function add_navigation_link( $navigation ) {
+		array_push( $navigation, $this->navlink );
+		return $navigation;
 	}
 
 	/**
@@ -113,6 +133,8 @@ class UmbrellaAntivirus {
 	 */
 	function render( $view_file, $data = array() ) {
 
+		$navigation_links = apply_filters( 'umbrella-navigation-links', array() );
+
 		// Enqueue angular to all views.
 		wp_enqueue_script( 'angular', vendor_url( 'angular/angular.min.js' ) );
 		wp_enqueue_script( 'umbrella-antivirus', assets_url( 'js/umbrella-antivirus.js' ) );
@@ -124,6 +146,7 @@ class UmbrellaAntivirus {
 		// Enqueue Umbrella CSS.
 		wp_enqueue_style( 'umbrella-antivirus', assets_url( 'css/umbrella-antivirus.css' ) );
 
+		// Include template files if they exists.
 		if ( file_exists( view_file( $view_file ) ) ) {
 			include( view_file( 'template/header' ) );
 			include( view_file( $view_file ) );
@@ -131,7 +154,31 @@ class UmbrellaAntivirus {
 		} else {
 			echo 'View ' . esc_attr( $view_file ) . ' do not exists';
 		}
+	}
 
+	/**
+	 * Render JSON
+	 * Renders a JSON response.
+	 *
+	 * @since 2.0
+	 * @param string $data Data that should be passed to JSON.
+	 */
+	function render_json( $data ) {
+		header('Content-Type: application/json');
+		echo json_encode( $data );
+		wp_die(); // this is required to terminate immediately and return a proper response.
+	}
+
+	/**
+	 * Only admin
+	 * Protects ajax methods from being called by non-admin users.
+	 *
+	 * @since 2.0
+	 */
+	function only_admin() {
+		if ( ! is_admin() ) {
+			wp_die();
+		}
 	}
 
 }

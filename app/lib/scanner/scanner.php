@@ -35,7 +35,7 @@ class Scanner extends UmbrellaAntivirus {
 	 * This function will run when WordPress calls the hook "admin_menu".
 	 */
 	public function admin_menu() {
-		$this->add_submenu( 'Scanner', 'admin_page_view' );
+		$this->add_submenu( 'Scanner', 'admin_page_view', 'fa fa-search' );
 	}
 
 	/**
