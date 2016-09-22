@@ -113,8 +113,13 @@ class UmbrellaAntivirus {
 	 */
 	function render( $view_file, $data = array() ) {
 
+		// Enqueue angular to all views.
+		wp_enqueue_script( 'angular', vendor_url( 'angular/angular.min.js' ) );
+
 		if ( file_exists( view_file( $view_file ) ) ) {
+			include( view_file( 'template/header' ) );
 			include( view_file( $view_file ) );
+			include( view_file( 'template/footer' ) );
 		} else {
 			echo 'View ' . esc_attr( $view_file ) . ' do not exists';
 		}

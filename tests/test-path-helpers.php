@@ -46,4 +46,5 @@ class PathHelpersTest extends \WP_UnitTestCase {
 	function test_view_path_exists() {
 		$this->assertTrue( file_exists( view_file( 'dashboard' ) ) );
 	}
+
 }

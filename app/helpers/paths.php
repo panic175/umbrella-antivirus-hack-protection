@@ -47,6 +47,18 @@ function view_file( $filename ) {
 }
 
 /**
+ * Vendor URL
+ * Returns URL to the vendor/ directory.
+ *
+ * @todo: Add some kind of testing for this method. (Requires live test server like rspec?)
+ * @since 2.0
+ * @param string $file_path Path to file relative from vendor/ directory.
+ */
+function vendor_url( $file_path ) {
+	return UMBRELLA__PLUGIN_URL . 'vendor/' . $file_path;
+}
+
+/**
  * Slugify
  * Generete a slug from a string, ex: 'Hello world' => 'hello-world'
  *
