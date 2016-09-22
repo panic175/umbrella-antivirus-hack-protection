@@ -1,0 +1,27 @@
+#umbrella__navbar {
+	background: #4aa3df;
+}
+
+#umbrella__navbar::after {
+	display: block;
+	content: '';
+	clear: both;
+}
+
+
+#umbrella__navbar ul li a {
+	padding: 20px 25px;
+	color: #ffffff;
+	text-transform: uppercase;
+	font-weight: bold;
+	letter-spacing: 0.3px;
+	transition: background 0.3s ease;
+	float: left;
+	display: block;
+	text-decoration: none;
+}
+
+#umbrella__navbar ul li.active a,
+#umbrella__navbar ul li a:hover {
+	background: #2980b9;
+}

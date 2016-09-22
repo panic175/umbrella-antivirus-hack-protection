@@ -47,6 +47,18 @@ function view_file( $filename ) {
 }
 
 /**
+ * Assets URL
+ * Returns URL to the app/assets/ directory.
+ *
+ * @todo: Add some kind of testing for this method. (Requires live test server like rspec?)
+ * @since 2.0
+ * @param string $file_path Path to file relative from vendor/ directory.
+ */
+function assets_url( $file_path ) {
+	return UMBRELLA__PLUGIN_URL . 'app/assets/' . $file_path;
+}
+
+/**
  * Vendor URL
  * Returns URL to the vendor/ directory.
  *

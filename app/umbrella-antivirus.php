@@ -115,6 +115,14 @@ class UmbrellaAntivirus {
 
 		// Enqueue angular to all views.
 		wp_enqueue_script( 'angular', vendor_url( 'angular/angular.min.js' ) );
+		wp_enqueue_script( 'umbrella-antivirus', assets_url( 'js/umbrella-antivirus.js' ) );
+		wp_enqueue_script( 'umbrella-vulnerability-scanner', assets_url( 'js/vulnerability-scanner.js' ) );
+
+		// Enqueue font-awesome.
+		wp_enqueue_style( 'font-awesome', 'https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css' );
+
+		// Enqueue Umbrella CSS.
+		wp_enqueue_style( 'umbrella-antivirus', assets_url( 'css/umbrella-antivirus.css' ) );
 
 		if ( file_exists( view_file( $view_file ) ) ) {
 			include( view_file( 'template/header' ) );

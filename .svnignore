@@ -1,0 +1,7 @@
+bin/
+tests/
+.bowerrc
+.codeclimate.yml
+.travis.yml
+.svnignore
+phpunit.xml.dist

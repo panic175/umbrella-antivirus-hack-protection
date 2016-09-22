@@ -1,0 +1,1 @@
+var UmbrellaAntivirus = angular.module('UmbrellaAntivirus', []);
