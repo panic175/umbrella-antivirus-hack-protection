@@ -83,15 +83,21 @@ class UmbrellaAntivirus {
 	 * @since 2.0
 	 * @param string $menu_name Name displayed in admin menu.
 	 * @param string $method_name The method that should be called in subclass.
+	 * @param string $slug_name Force slug to something else (optional).
 	 */
-	public function add_submenu( $menu_name, $method_name ) {
+	public function add_submenu( $menu_name, $method_name, $slug_name = null ) {
+
+		// Auto generate a slug from $menu_name if no custom slug is set.
+		if ( ! isset( $slug_name ) ) {
+			$slug_name = slugify( $menu_name );
+		}
 
 		add_submenu_page(
 			'umbrella-antivirus',
 			'Umbrella Antivirus',
 			$menu_name,
 			'administrator',
-			'umbrella-antivirus',
+			$slug_name,
 			array( $this, $method_name )
 		);
 

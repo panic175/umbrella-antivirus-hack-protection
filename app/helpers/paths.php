@@ -17,16 +17,18 @@ if ( ! defined( 'ABSPATH' ) ) {
  * App file
  * Returns path to files within app directory.
  *
+ * @since 2.0
  * @param string $filename name of file.
  */
 function app_file( $filename ) {
-	return UMBRELLA__PLUGIN_DIR . 'app/' . $filename;
+	return UMBRELLA__PLUGIN_DIR . 'app/' . $filename . '.php';
 }
 
 /**
  * Library file
  * Returns path to libraries within app directory.
  *
+ * @since 2.0
  * @param string $libname name of library.
  */
 function lib_file( $libname ) {
@@ -37,8 +39,42 @@ function lib_file( $libname ) {
  * View file
  * Returns path to a view file within app/views/ directory.
  *
+ * @since 2.0
  * @param string $filename name of view file.
  */
 function view_file( $filename ) {
 	return UMBRELLA__PLUGIN_DIR . 'app/views/' . $filename . '.php';
+}
+
+/**
+ * Slugify
+ * Generete a slug from a string, ex: 'Hello world' => 'hello-world'
+ *
+ * @since 2.0
+ * @param string $string The string to slugify.
+ */
+function slugify( $string ) {
+	// replace non letter or digits by -.
+	$string = preg_replace( '~[^\pL\d]+~u', '-', $string );
+
+	// transliterate.
+	$string = iconv( 'utf-8', 'us-ascii//TRANSLIT', $string );
+
+	// remove unwanted characters.
+	$string = preg_replace( '~[^-\w]+~', '', $string );
+
+	// trim.
+	$string = trim( $string, '-' );
+
+	// remove duplicate -.
+	$string = preg_replace( '~-+~', '-', $string );
+
+	// lowercase.
+	$string = strtolower( $string );
+
+	if ( empty( $string ) ) {
+		return 'n-a';
+	}
+
+	return $string;
 }

@@ -35,7 +35,7 @@ class Dashboard extends UmbrellaAntivirus {
 	 * This function will run when WordPress calls the hook "admin_menu".
 	 */
 	public function admin_menu() {
-		$this->add_submenu( 'Dashboard', 'admin_page_view' );
+		$this->add_submenu( 'Dashboard', 'admin_page_view', 'umbrella-antivirus' );
 	}
 
 	/**
