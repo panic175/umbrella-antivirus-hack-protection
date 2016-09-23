@@ -39,4 +39,3 @@ require_once( UMBRELLA__PLUGIN_DIR . 'app/helpers/paths.php' );
 
 // Require bootstrap (load files and init plugin).
 require_once( Umbrella\app_file( 'bootstrap' ) );
-
