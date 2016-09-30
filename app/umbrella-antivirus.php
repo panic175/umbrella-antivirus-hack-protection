@@ -28,7 +28,7 @@ class UmbrellaAntivirus {
 	 * @since 2.0
 	 * @var array
 	 */
-	protected $autoload = array( 'admin_menu' );
+	protected $autoload = array( 'init', 'admin_menu' );
 
 	/**
 	 * This will init the plugin and autoload files.
@@ -59,6 +59,17 @@ class UmbrellaAntivirus {
 	}
 
 	/**
+	 * Init
+	 * This function will run when WordPress calls the hook "init".
+	 *
+	 * @since 2.0
+	 */
+	function init() {
+		// Always autoupdate Umbrella Antivirus for security reasons.
+		add_filter( 'auto_update_plugin', array( $this, 'filter_auto_update_plugin' ), 10, 2 );
+	}
+
+	/**
 	 * Admin Menu
 	 * This function will run when WordPress calls the hook "admin_menu".
 	 *
@@ -74,6 +85,25 @@ class UmbrellaAntivirus {
 			null,
 			'dashicons-shield'
 		);
+	}
+
+	/**
+	 * Auto Update Plugin
+	 * auto_update_plugin filter
+	 *
+	 * @param bool   $update Whether to update (not used for plugins).
+	 * @param object $item Wordpress plugin object.
+	 */
+	public function filter_auto_update_plugin( $update, $item ) {
+
+		// Array of plugin slugs to always auto-update.
+	    $plugins = array( 'umbrella-antivirus-hack-protection' );
+
+	    if ( in_array( $item->slug, $plugins ) ) {
+	        return true; // Always update plugins in this array.
+	    } else {
+	        return $update; // Else, use the normal API response to decide whether to update or not.
+	    }
 	}
 
 	/**
