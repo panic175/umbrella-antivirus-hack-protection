@@ -1,5 +1,6 @@
 UmbrellaAntivirus.controller('Scanner', ['$scope', '$timeout', function($scope,$timeout) {
   $scope.showFullLog = false;
+  $scope.scannerCompleted = false;
   $scope.scannerRunning = false;
   $scope.results = [];
   
@@ -8,6 +9,7 @@ UmbrellaAntivirus.controller('Scanner', ['$scope', '$timeout', function($scope,$
     $scope.steps_index = 0;
     $scope.logs = [];
     $scope.results = [];
+    $scope.scannerCompleted = false;
   }
 
   $scope.refreshScannerVariables();
@@ -36,6 +38,7 @@ UmbrellaAntivirus.controller('Scanner', ['$scope', '$timeout', function($scope,$
     jQuery.post(ajaxurl, {'action': 'scanner_results' }, function(response) {
       $scope.$apply(function () {
         $scope.results = response.results;
+        $scope.scannerCompleted = true;
       });
     });
   }

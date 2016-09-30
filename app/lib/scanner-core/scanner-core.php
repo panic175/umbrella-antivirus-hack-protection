@@ -180,13 +180,13 @@ class CoreScanner extends UmbrellaAntivirus {
 	 */
 	public function scan_core_files() {
 
-		$core_files = $this->system_files();
+		$system_files = $this->system_files();
 
-		foreach ( $core_files as $file ) {
+		foreach ( $system_files as $file ) {
 			$this->check_file( $file );
 		}
 
-		return true;
+		return count( $system_files );
 	}
 
 	/**
@@ -231,12 +231,13 @@ class CoreScanner extends UmbrellaAntivirus {
 
 		$this->only_admin(); // Die if not admin.
 
-		$this->scan_core_files(); // Scan all core files.
+		$number_of_files = $this->scan_core_files(); // Scan all core files.
+		$number_of_files = number_format( $number_of_files );
 
 		$output = array(
 			'status' => 'success',
 			'logs' => array(
-				'Core scanner finished.'
+				"Core scanner finished. Scanned {$number_of_files} files."
 			),
 		);
 

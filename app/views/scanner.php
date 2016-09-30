@@ -1,6 +1,6 @@
 <div id="scanner" ng-controller="Scanner">
 	<h2>Scanner</h2>
-	<a ng-if="logs.length==0" href="#" class="button button-primary" ng-click="InitScanner()">Start scan</a>
+	<a ng-if="logs.length==0" href="#" class="button button-primary" ng-click="InitScanner()">Perform Scan</a>
 	{{ logs[logs.length - 1].message }}
 	<div ng-if="logs.length>0">
 		<hr>
@@ -10,7 +10,7 @@
 	</div>
 
 	<div ng-if="logs.length!=0 && showFullLog">
-		<h3>Scanner log</h3>
+		<h3>Scanner Log</h3>
 		<table class="wp-list-table widefat striped">
 			<thead>
 				<tr>
@@ -27,6 +27,11 @@
 		</table>
 	</div>
 
+	<div ng-if="results.length==0 && scannerCompleted">
+		<h3>Scanner Results</h3>
+		<strong style="color:#27ae60">Scanner succeeded without any errors. No suspect files or issues were found. Good job!</strong>
+	</div>
+
 	<div ng-if="results.length!=0">
 		<h3>Scanner Results</h3>
 		<table class="wp-list-table widefat striped">
@@ -39,7 +44,9 @@
 			</thead>
 			<tbody>
 				<tr ng-repeat="result in results">
-					<td style="max-width: 100px;">{{result.error_code}}</td>
+					<td style="max-width: 100px;">
+						<a href="https://github.com/kjellberg/umbrella-antivirus-hack-protection/wiki/Error-codes#{{result.error_code}}" target="_blank">{{result.error_code}}</a>
+					</td>
 					<td style="max-width: 100px;">{{result.file}}</td>
 					<td>{{result.error_message}}</td>
 				</tr>
