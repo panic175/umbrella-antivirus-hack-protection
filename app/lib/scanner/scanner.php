@@ -57,7 +57,7 @@ class Scanner extends UmbrellaAntivirus {
 	 */
 	public function add_result( $module, $file, $error_code, $error_message ) {
 
-		$hours = 60 * 60; // 60 seconds * 60 = 1 hour.
+		$hours = 60 * 24; // 60 seconds * 60 = 1 hour.
 
 		$results = get_transient( 'umbrella-scanner-results' );
 

@@ -17,7 +17,7 @@
 						<div id="security_status_bar" style="width: {{securitystatus.percent}}%"></div>
 					</div>
 				</div>
-				<a style="float:right;">View details</a>
+				<a href="?page=security-checks" style="float:right;">View details</a>
 				{{securitystatus.passed_points}}/{{securitystatus.total_points}} security points.
 			</div>
 		</div>

@@ -66,6 +66,14 @@
     background: #27ae60;
 }
 
+.status.passed {
+  color: #27ae60;
+}
+
+.status.failed {
+  color: #e74c3c;
+}
+
 .column,
 .columns {
   width: 100%;

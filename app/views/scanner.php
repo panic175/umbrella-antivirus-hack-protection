@@ -1,4 +1,4 @@
-<div id="scanner" ng-controller="Scanner">
+<div id="scanner" ng-controller="Scanner" ng-init="getResults()">
 	<h2>Scanner</h2>
 	<a ng-if="logs.length==0" href="#" class="button button-primary" ng-click="InitScanner()">Perform Scan</a>
 

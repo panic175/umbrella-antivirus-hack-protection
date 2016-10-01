@@ -39,8 +39,12 @@ class SecurityChecks extends UmbrellaAntivirus {
 	 * @var array
 	 */
 	protected $checks = array(
+		'check_scan_results' => array(
+			'weight' => 100,
+			'desc' => 'Scanner was run without any security issues within the latest 24 hours.',
+		),
 		'check_module_auto_update' => array(
-			'weight' => 4,
+			'weight' => 5,
 			'desc' => 'Umbrella module "Realtime Updates" is activated.',
 		),
 		'check_module_filter_requests' => array(
@@ -48,7 +52,7 @@ class SecurityChecks extends UmbrellaAntivirus {
 			'desc' => 'Umbrella module "Filter Requests" is activated.',
 		),
 		'check_module_captcha_login' => array(
-			'weight' => 15,
+			'weight' => 30,
 			'desc' => 'Umbrella module "Captcha login" is activated.',
 		),
 		'check_module_hide_version' => array(
@@ -71,6 +75,18 @@ class SecurityChecks extends UmbrellaAntivirus {
 			'weight' => 10,
 			'desc' => 'WP_DEBUG should not be enabled.',
 		),
+		'check_latest_core_version' => array(
+			'weight' => 10,
+			'desc' => 'WordPress core is running the latest update.',
+		),
+		'check_plugins_updated' => array(
+			'weight' => 10,
+			'desc' => 'All WordPress plugins are updated',
+		),
+		'check_themes_updated' => array(
+			'weight' => 10,
+			'desc' => 'All WordPress themes are updated',
+		),
 	);
 
 	/**
@@ -81,6 +97,14 @@ class SecurityChecks extends UmbrellaAntivirus {
 		$this->add_submenu( 'Security Checks', 'admin_page_view', 'fa fa-check-square-o' );
 	}
 
+
+	/**
+	 * Check that scanner was runned with successfull results within 24 hours
+	 */
+	private function check_scan_results() {
+		$results = get_transient( 'umbrella-scanner-results' );
+		return ( isset( $results ) and is_array( $results ) and empty( $results ) );
+	}
 
 	/**
 	 * Check that module Auto update is activated.
@@ -136,6 +160,51 @@ class SecurityChecks extends UmbrellaAntivirus {
 	 */
 	private function check_wp_debug() {
 		return false === WP_DEBUG;
+	}
+
+	/**
+	 * Check latest WP core version.
+	 */
+	private function check_latest_core_version() {
+
+		wp_version_check();
+		$latest_core_update = get_preferred_from_update_core();
+
+		return false === ( isset( $latest_core_update->response ) && ( 'upgrade' == $latest_core_update->response ) );
+	}
+
+	/**
+	 * Check that all plugins are updated.
+	 */
+	private function check_plugins_updated() {
+
+		wp_update_plugins();
+
+		$plugins = get_site_transient( 'update_plugins' );
+		$plugins_count = 0;
+
+		if ( isset( $plugins->response ) && is_array( $plugins->response ) ) {
+			$plugins_count = count( $plugins->response );
+		}
+
+		return false == ( $plugins_count > 0 );
+	}
+
+	/**
+	 * Check that all themes are updated.
+	 */
+	private function check_themes_updated() {
+
+		wp_update_themes();
+
+		$themes = get_site_transient( 'update_themes' );
+		$themes_count = 0;
+
+		if ( isset( $themes->response ) && is_array( $themes->response ) ) {
+			$themes_count = count( $themes->response );
+		}
+
+		return false == ( $themes_count > 0 );
 	}
 
 	/**
