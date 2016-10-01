@@ -46,7 +46,8 @@ class ReallySimpleCaptcha {
 			dirname( __FILE__ ) . '/gentium/GenBkBasB.ttf' );
 
 		/* Directory temporary keeping CAPTCHA images and corresponding text files */
-		$this->tmp_dir = UMBRELLA__PLUGIN_TMPDIR;
+		$upload_dir = wp_upload_dir();
+		$this->tmp_dir = $upload_dir['basedir'];
 
 		/* Array of CAPTCHA image size. Width and height */
 		$this->img_size = array( 72, 24 );

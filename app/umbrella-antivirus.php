@@ -169,6 +169,7 @@ class UmbrellaAntivirus {
 		wp_enqueue_script( 'angular', vendor_url( 'angular/angular.min.js' ) );
 		wp_enqueue_script( 'umbrella-antivirus', assets_url( 'js/umbrella-antivirus.js' ) );
 		wp_enqueue_script( 'umbrella-scanner', assets_url( 'js/scanner.js' ) );
+		wp_enqueue_script( 'umbrella-dashboard', assets_url( 'js/dashboard.js' ) );
 		wp_enqueue_script( 'umbrella-vulnerability-scanner', assets_url( 'js/vulnerability-scanner.js' ) );
 
 		// Enqueue font-awesome.

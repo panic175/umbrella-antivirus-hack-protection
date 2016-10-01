@@ -1,5 +1,8 @@
+<script>
+	var umbrella_ajax_nonce = '<?php echo wp_create_nonce( 'umbrella_ajax_nonce' ); ?>';
+</script>
 <div id="umbrella" class="wrap" ng-app="UmbrellaAntivirus">
-<h1>Umbrella Antivirus &amp; Hack protection</h1>
+<h1 style="text-align:center;margin: 10px 0px;">Umbrella Antivirus &amp; Hack protection</h1>
 <div class="wp-filter">
 	<ul class="filter-links">
 		<?php foreach( $navigation_links as $link ): ?>

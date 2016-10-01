@@ -36,6 +36,18 @@ function lib_file( $libname ) {
 }
 
 /**
+ * Module file
+ * Returns path to a module within modules directory.
+ *
+ * @since 2.0
+ * @param string $module_slug name of module.
+ */
+function module_file( $module_slug ) {
+	$module_file = str_replace( '_', '-', $module_slug );
+	return UMBRELLA__PLUGIN_DIR . 'app/modules/' . $module_file . '.php';
+}
+
+/**
  * View file
  * Returns path to a view file within app/views/ directory.
  *
@@ -56,6 +68,18 @@ function view_file( $filename ) {
  */
 function assets_url( $file_path ) {
 	return UMBRELLA__PLUGIN_URL . 'app/assets/' . $file_path;
+}
+
+/**
+ * Vendor Dir Path
+ * Returns Path to the vendor/ directory.
+ *
+ * @todo: Add some kind of testing for this method. (Requires live test server like rspec?)
+ * @since 2.0
+ * @param string $file_path Path to file relative from vendor/ directory.
+ */
+function vendor_dir_path( $file_path ) {
+	return UMBRELLA__PLUGIN_DIR . 'vendor/' . $file_path;
 }
 
 /**

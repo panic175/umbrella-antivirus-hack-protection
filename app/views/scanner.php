@@ -1,7 +1,9 @@
 <div id="scanner" ng-controller="Scanner">
 	<h2>Scanner</h2>
 	<a ng-if="logs.length==0" href="#" class="button button-primary" ng-click="InitScanner()">Perform Scan</a>
-	{{ logs[logs.length - 1].message }}
+
+	<i ng-if="scannerRunning" class="fa fa-spin fa-spinner"></i> {{ logs[logs.length - 1].message }}
+
 	<div ng-if="logs.length>0">
 		<hr>
 		<a href="#" class="button" ng-if="!showFullLog" ng-click="toggleLog()"> + Show full scan log</a>
