@@ -9,7 +9,7 @@
 		</div>
 	</div>
 	<div class="six columns">
-		<div class="stuffbox">
+		<div class="stuffbox" ng-if="securitystatus.percent">
 			<h3>Security Status</h3>
 			<div class="inside">
 				<div id="security_status_container" ng-class="securitystatus.class">
@@ -42,8 +42,11 @@
 			<td>
 				<strong>{{ module.name }}</strong><br>
 				<div class="row-actions visible">
-					<a href="javascript:void(0)" ng-click="deactivateModule(module.slug)" class="edit" ng-if="module.status=='active'">Deactivate</a>
-					<a href="javascript:void(0)" ng-click="activateModule(module.slug)" class="edit" ng-if="module.status=='inactive'">Activate</a>
+					<i id="loader-{{module.slug}}" class="fa fa-spin fa-spinner" style="display: none"></i>
+					<span id="btns-{{module.slug}}">
+						<a href="javascript:void(0)" ng-click="deactivateModule(module.slug)" class="edit" ng-if="module.status=='active'">Deactivate</a>
+						<a href="javascript:void(0)" ng-click="activateModule(module.slug)" class="edit" ng-if="module.status=='inactive'">Activate</a>
+					</span>
 				</div>
 			</td>
 			<td>

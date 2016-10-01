@@ -1,6 +1,6 @@
 <div id="dashboard" ng-controller="SecurityChecks" ng-init="InitSecurityChecks()">
 <h2>Security Checks</h2>
-<div class="stuffbox">
+<div class="stuffbox" ng-if="securitystatus.percent">
 	<h3>Security Status</h3>
 	<div class="inside">
 		<div id="security_status_container" ng-class="securitystatus.class">

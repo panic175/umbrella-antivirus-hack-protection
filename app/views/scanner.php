@@ -33,8 +33,7 @@
 		<h3>Scanner Results</h3>
 		<strong style="color:#27ae60">Scanner succeeded without any errors. No suspect files or issues were found. Good job!</strong>
 	</div>
-
-	<div ng-if="results.length!=0">
+	<div ng-if="results.length!=0 && results!=false">
 		<h3>Scanner Results</h3>
 		<table class="wp-list-table widefat striped">
 			<thead>
