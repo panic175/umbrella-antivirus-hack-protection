@@ -1,0 +1,243 @@
+<?php
+/**
+ * Security Checks
+ * Checks for security issues and returns a status
+ *
+ * @since 2.0
+ * @package UmbrellaAntivirus
+ */
+
+namespace Umbrella;
+
+if ( ! defined( 'ABSPATH' ) ) {
+	exit; // Exit if accessed directly!
+}
+
+/**
+ * Security Checks
+ * Checks for security issues and returns a status
+ *
+ * @since 2.0
+ * @package UmbrellaAntivirus
+ */
+class SecurityChecks extends UmbrellaAntivirus {
+
+	/**
+	 * Whitelabel autoload actions/methods
+	 * List of valid methods/hooks.
+	 *
+	 * @since 2.0
+	 * @var array
+	 */
+	protected $autoload = array( 'admin_menu', 'wp_ajax_get_security_status', 'wp_ajax_get_security_list' );
+
+	/**
+	 * Checks
+	 * List of methods to check
+	 *
+	 * @since 2.0
+	 * @var array
+	 */
+	protected $checks = array(
+		'check_module_auto_update' => array(
+			'weight' => 4,
+			'desc' => 'Umbrella module "Realtime Updates" is activated.',
+		),
+		'check_module_filter_requests' => array(
+			'weight' => 20,
+			'desc' => 'Umbrella module "Filter Requests" is activated.',
+		),
+		'check_module_captcha_login' => array(
+			'weight' => 15,
+			'desc' => 'Umbrella module "Captcha login" is activated.',
+		),
+		'check_module_hide_version' => array(
+			'weight' => 5,
+			'desc' => 'Umbrella module "Hide Versions" is activated.',
+		),
+		'check_module_disable_ping' => array(
+			'weight' => 5,
+			'desc' => 'Umbrella module "Disable Ping" is activated.',
+		),
+		'check_module_disable_editor' => array(
+			'weight' => 5,
+			'desc' => 'Umbrella module "Disable Editor" is activated.',
+		),
+		'check_user_admin_exists' => array(
+			'weight' => 10,
+			'desc' => 'A user with username "admin" should not exist.',
+		),
+		'check_wp_debug' => array(
+			'weight' => 10,
+			'desc' => 'WP_DEBUG should not be enabled.',
+		),
+	);
+
+	/**
+	 * Admin Menu
+	 * This function will run when WordPress calls the hook "admin_menu".
+	 */
+	public function admin_menu() {
+		$this->add_submenu( 'Security Checks', 'admin_page_view', 'fa fa-check-square-o' );
+	}
+
+
+	/**
+	 * Check that module Auto update is activated.
+	 */
+	private function check_module_auto_update() {
+		return $this->check_module( 'realtime_updates' );
+	}
+
+	/**
+	 * Check that module Filter Requests is activated.
+	 */
+	private function check_module_filter_requests() {
+		return $this->check_module( 'filter_requests' );
+	}
+
+	/**
+	 * Check that module Captcha login is activated.
+	 */
+	private function check_module_captcha_login() {
+		return $this->check_module( 'captcha_login' );
+	}
+
+	/**
+	 * Check that module Hide Version is activated.
+	 */
+	private function check_module_hide_version() {
+		return $this->check_module( 'hide_version' );
+	}
+
+	/**
+	 * Check that module Disable Ping is activated.
+	 */
+	private function check_module_disable_ping() {
+		return $this->check_module( 'disable_ping' );
+	}
+
+	/**
+	 * Check that module Disable Editor is activated.
+	 */
+	private function check_module_disable_editor() {
+		return $this->check_module( 'disable_editor' );
+	}
+
+	/**
+	 * Check if "admin" username exists
+	 */
+	private function check_user_admin_exists() {
+		return false === username_exists( 'admin' );
+	}
+
+	/**
+	 * Check so that WP_DEBUG is not enabled.
+	 */
+	private function check_wp_debug() {
+		return false === WP_DEBUG;
+	}
+
+	/**
+	 * Check that a module is activated.
+	 *
+	 * @param string $module Module to check.
+	 */
+	private function check_module( $module ) {
+		global $umbrella_antivirus;
+
+		if ( 'active' == $umbrella_antivirus->modules->status( $module ) ) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	/**
+	 * AJAX: Get security list
+	 * Get full list of security checks with status
+	 */
+	public function wp_ajax_get_security_list() {
+
+		$this->only_admin(); // Die if not admin.
+		check_ajax_referer( 'umbrella_ajax_nonce', 'security' ); // Check nonce.
+
+		$response = array();
+
+		foreach ( $this->checks as $method => $data ) {
+			if ( method_exists( $this, $method ) and true === $this->$method() ) {
+				$response[] = array(
+					'method' => $method,
+					'description' => $data['desc'],
+					'passed' => true,
+					'weight' => $data['weight'],
+				);
+			} else {
+				$response[] = array(
+					'method' => $method,
+					'description' => $data['desc'],
+					'passed' => false,
+					'weight' => $data['weight'],
+				);
+			}
+		}
+
+		$this->render_json( $response );
+
+	}
+
+	/**
+	 * AJAX: Get security status
+	 * Get security status for status bar
+	 */
+	public function wp_ajax_get_security_status() {
+
+		$this->only_admin(); // Die if not admin.
+		check_ajax_referer( 'umbrella_ajax_nonce', 'security' ); // Check nonce.
+
+		$total_checks = count( $this->checks );
+		$total_passed = 0;
+
+		$total_weight = 0;
+		$passed_weight = 0;
+
+		foreach ( $this->checks as $method => $data ) {
+			$weight = $data['weight'];
+			$total_weight = $total_weight + $weight;
+
+			if ( method_exists( $this, $method ) and true === $this->$method() ) {
+				$total_passed++;
+				$passed_weight = $passed_weight + $weight;
+			}
+		}
+
+		$percent = ( $passed_weight / $total_weight ) * 100;
+
+		if ( $percent > 80 ) {
+			$class = 'green';
+		} else {
+			$class = 'red';
+		}
+
+		$response = array(
+			'class' => $class,
+			'percent' => $percent,
+			'total_checks' => $total_checks,
+			'passed_checks' => $total_passed,
+			'total_points' => $total_weight,
+			'passed_points' => $passed_weight,
+		);
+
+		$this->render_json( $response );
+	}
+
+
+	/**
+	 * Admin Page View
+	 * Load admin page view
+	 */
+	public function admin_page_view() {
+		$this->render( 'security-checks' );
+	}
+
+}

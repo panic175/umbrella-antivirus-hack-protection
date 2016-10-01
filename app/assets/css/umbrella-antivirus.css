@@ -40,6 +40,32 @@
     padding: 10px;
 }
 
+#security_status_container #security_status {
+    margin-bottom: 5px;
+}
+
+#security_status_container #security_status_bar {
+    padding: 15px 0px;
+    text-align: center;
+    color: #ffffff;
+    -webkit-transition: width 500ms; /* Safari */
+    transition: width 500ms;
+}
+
+#security_status_container.red #security_status {
+    background: #e74c3c;
+}
+#security_status_container.red #security_status_bar {
+    background: #c0392b;
+}
+
+#security_status_container.green #security_status {
+    background: #2ecc71;
+}
+#security_status_container.green #security_status_bar {
+    background: #27ae60;
+}
+
 .column,
 .columns {
   width: 100%;

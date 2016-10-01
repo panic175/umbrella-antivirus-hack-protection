@@ -171,6 +171,7 @@ class UmbrellaAntivirus {
 		wp_enqueue_script( 'umbrella-scanner', assets_url( 'js/scanner.js' ) );
 		wp_enqueue_script( 'umbrella-dashboard', assets_url( 'js/dashboard.js' ) );
 		wp_enqueue_script( 'umbrella-vulnerability-scanner', assets_url( 'js/vulnerability-scanner.js' ) );
+		wp_enqueue_script( 'umbrella-security-checks', assets_url( 'js/security-checks.js' ) );
 
 		// Enqueue font-awesome.
 		wp_enqueue_style( 'font-awesome', 'https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css' );

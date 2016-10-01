@@ -1,8 +1,26 @@
 <div id="dashboard" ng-controller="Dashboard" ng-init="InitDashboard()">
 <h2>Umbrella Antivirus &amp; Hack Protection</h2>
-<div class="stuffbox">
-	<div class="inside">
-		<?php _e( 'This plugin does nothing by default, and that\'s because we want you to know whats happening behind the scenes. With that said, please choose wich modules and settings you want to use with Umbrella. Even if nothing is loaded by default, we recommend you to activate them all for best protection.', 'umbrella-antivirus-hack-protection' ); ?>
+<div class="row">
+	<div class="six columns">
+		<div class="stuffbox">
+			<div class="inside">
+				<?php _e( 'This plugin does nothing by default, and that\'s because we want you to know whats happening behind the scenes. With that said, please choose wich modules and settings you want to use with Umbrella. Even if nothing is loaded by default, we recommend you to activate them all for best protection.', 'umbrella-antivirus-hack-protection' ); ?>
+			</div>
+		</div>
+	</div>
+	<div class="six columns">
+		<div class="stuffbox">
+			<h3>Security Status</h3>
+			<div class="inside">
+				<div id="security_status_container" ng-class="securitystatus.class">
+					<div id="security_status">
+						<div id="security_status_bar" style="width: {{securitystatus.percent}}%"></div>
+					</div>
+				</div>
+				<a style="float:right;">View details</a>
+				{{securitystatus.passed_points}}/{{securitystatus.total_points}} security points.
+			</div>
+		</div>
 	</div>
 </div>
 <h2>Security settings</h2>

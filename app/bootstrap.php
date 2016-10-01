@@ -23,6 +23,7 @@ require_once( lib_file( 'scanner-core' ) );
 require_once( lib_file( 'vulnerability-scanner' ) );
 require_once( lib_file( 'modules' ) );
 require_once( lib_file( 'modules' ) );
+require_once( lib_file( 'security-checks' ) );
 require_once( vendor_dir_path( 'really-simple-captcha/really-simple-captcha.php' ) );
 
 
@@ -50,3 +51,4 @@ $umbrella_antivirus->vulnerability_scanner = new VulnerabilityScanner();
 $umbrella_antivirus->scanner = new Scanner();
 $umbrella_antivirus->scanner->core = new CoreScanner();
 $umbrella_antivirus->modules = new Modules();
+$umbrella_antivirus->securitychecks = new SecurityChecks();
