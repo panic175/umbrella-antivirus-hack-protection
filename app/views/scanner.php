@@ -41,15 +41,19 @@
 					<td style="width: 100px;">Error Code</td>
 					<td style="width: 200px;">File</td>
 					<td>Logmessage</td>
+					<td>Actions</td>
 				</tr>
 			</thead>
 			<tbody>
 				<tr ng-repeat="result in results">
-					<td style="max-width: 100px;">
+					<td style="max-width: 100px;vertical-align: middle;">
 						<a href="https://github.com/kjellberg/umbrella-antivirus-hack-protection/wiki/Error-codes#{{result.error_code}}" target="_blank">{{result.error_code}}</a>
 					</td>
-					<td style="max-width: 100px;">{{result.file}}</td>
-					<td>{{result.error_message}}</td>
+					<td style="max-width: 100px;vertical-align: middle;">{{result.file}}</td>
+					<td style="vertical-align: middle;">{{result.error_message}}</td>
+					<td>
+						<span ng-repeat="button in result.buttons" ng-bind-html="button" style="margin-right: 5px"></span>
+					</td>
 				</tr>
 			</tbody>
 		</table>

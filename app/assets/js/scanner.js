@@ -38,7 +38,6 @@ UmbrellaAntivirus.controller('Scanner', ['$scope', '$timeout', function($scope,$
     jQuery.post(ajaxurl, {'action': 'scanner_results' }, function(response) {
       $scope.$apply(function () {
         $scope.results = response.results;
-        $scope.scannerCompleted = true;
       });
     });
   }
@@ -54,6 +53,7 @@ UmbrellaAntivirus.controller('Scanner', ['$scope', '$timeout', function($scope,$
         var diff = ((new Date() - $scope.logs[0].timestamp) / 1000);
         $scope.writeLog( "Scan completed in " + diff + " seconds." );
         $scope.scannerRunning = false;
+        $scope.scannerCompleted = true;
         $scope.getResults();
       });
     }

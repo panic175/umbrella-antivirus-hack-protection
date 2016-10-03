@@ -55,6 +55,10 @@ class CoreScanner extends UmbrellaAntivirus {
 	 */
 	public function admin_init() {
 		add_filter( 'umbrella-scanner-steps', array( $this, 'register_scanner' ) );
+
+		add_filter( 'scanner-buttons-0020', array( $this, 'add_compare_button') );
+		add_filter( 'scanner-buttons-0020', array( $this, 'add_ignore_button') );
+		add_filter( 'scanner-buttons-0010', array( $this, 'add_ignore_button') );
 	}
 
 	/**
@@ -86,6 +90,24 @@ class CoreScanner extends UmbrellaAntivirus {
 	public function has_core_files_list() {
 		global $wp_version;
 		return false !== get_transient( 'core_tree_list_' . $wp_version );
+	}
+
+	/**
+	 * Add ignore button.
+	 * Add ignore button to scanner results.
+	 */
+	public function add_ignore_button( $buttons ) {
+		$buttons[] = '<a href="#" ng-click="#" class="button">IGNORE</a>';
+		return $buttons;
+	}
+
+	/**
+	 * Add compare button.
+	 * Add compare button to scanner results.
+	 */
+	public function add_compare_button( $buttons ) {
+		$buttons[] = '<a href="#" ng-click="#" class="button">COMPARE</a>';
+		return $buttons;
 	}
 
 	/**

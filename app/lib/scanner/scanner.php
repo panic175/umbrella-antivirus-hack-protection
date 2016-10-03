@@ -57,7 +57,7 @@ class Scanner extends UmbrellaAntivirus {
 	 */
 	public function add_result( $module, $file, $error_code, $error_message ) {
 
-		$hours = 60 * 24; // 60 seconds * 60 = 1 hour.
+		$hours = 60 * 60 * 24; // 60 seconds * 60 = 1 hour.
 
 		$results = get_transient( 'umbrella-scanner-results' );
 
@@ -115,8 +115,15 @@ class Scanner extends UmbrellaAntivirus {
 	public function wp_ajax_scanner_results() {
 		$this->only_admin(); // Die if not admin.
 
+		$results = array();
+		foreach ($this->get_results() as $result) {
+			$tmp = $result;
+			$tmp['buttons'] = apply_filters( 'scanner-buttons-' . $tmp['error_code'], array());
+			$results[] = $tmp;
+		}
+
 		$response = array(
-			'results' => $this->get_results(),
+			'results' => apply_filters( 'scanner-results', $results ),
 		);
 
 		$this->render_json( $response );

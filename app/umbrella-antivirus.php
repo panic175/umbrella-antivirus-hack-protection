@@ -167,6 +167,7 @@ class UmbrellaAntivirus {
 
 		// Enqueue angular to all views.
 		wp_enqueue_script( 'angular', vendor_url( 'angular/angular.min.js' ) );
+		wp_enqueue_script( 'angular-sanitize', vendor_url( 'angular/angular-sanitize.js' ) );
 		wp_enqueue_script( 'umbrella-antivirus', assets_url( 'js/umbrella-antivirus.js' ) );
 		wp_enqueue_script( 'umbrella-scanner', assets_url( 'js/scanner.js' ) );
 		wp_enqueue_script( 'umbrella-dashboard', assets_url( 'js/dashboard.js' ) );
