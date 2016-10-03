@@ -82,8 +82,9 @@ class Modules extends UmbrellaAntivirus {
 		check_ajax_referer( 'umbrella_ajax_nonce', 'security' ); // Check nonce.
 
 		if ( isset( $_POST['slug'] ) ) {
-			$module = wp_unslash( $_POST['slug'] );
-			$module = sanitize_text_field( $_POST['slug'] );
+			$module = sanitize_text_field( wp_unslash( $_POST['slug'] ) );
+		} else {
+			die( 'No such module' );
 		}
 
 		$options = get_option( 'umbrella_load_modules' );
@@ -102,8 +103,9 @@ class Modules extends UmbrellaAntivirus {
 		check_ajax_referer( 'umbrella_ajax_nonce', 'security' ); // Check nonce.
 
 		if ( isset( $_POST['slug'] ) ) {
-			$module = wp_unslash( $_POST['slug'] );
-			$module = sanitize_text_field( $_POST['slug'] );
+			$module = sanitize_text_field( wp_unslash( $_POST['slug'] ) );
+		} else {
+			die( 'No such module' );
 		}
 
 		$options = get_option( 'umbrella_load_modules' );

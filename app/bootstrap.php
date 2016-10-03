@@ -25,6 +25,7 @@ require_once( lib_file( 'modules' ) );
 require_once( lib_file( 'modules' ) );
 require_once( lib_file( 'security-checks' ) );
 require_once( vendor_dir_path( 'really-simple-captcha/really-simple-captcha.php' ) );
+require_once( vendor_dir_path( 'diff/diff.lib.php' ) );
 
 
 // Get all available modules from module class.

@@ -3,6 +3,9 @@ UmbrellaAntivirus.controller('Scanner', ['$scope', '$timeout', function($scope,$
   $scope.scannerCompleted = false;
   $scope.scannerRunning = false;
   $scope.results = [];
+
+  $scope.compare_file_html = false;
+  $scope.displayFileComparison = false;
   
   $scope.refreshScannerVariables = function() {
     $scope.steps = [];
@@ -72,6 +75,19 @@ UmbrellaAntivirus.controller('Scanner', ['$scope', '$timeout', function($scope,$
       $scope.continueScanner();
     });
 
+  }
+
+  $scope.compareFile = function( file ) {
+    $scope.displayFileComparison = true;
+    $scope.compare_file_html = false;
+    
+    jQuery.post(ajaxurl, { 'action': 'compare_file', 'file': file, 'security': window.umbrella_ajax_nonce }, function(response) {
+      if (response.status == 'success') {
+        $scope.$apply(function () {
+          $scope.compare_file_html = response.html;
+        });
+      }
+    });
   }
 
   $scope.writeLog = function( message ) {

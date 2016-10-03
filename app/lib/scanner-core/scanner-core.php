@@ -28,7 +28,12 @@ class CoreScanner extends UmbrellaAntivirus {
 	 * @since 2.0
 	 * @var array
 	 */
-	protected $autoload = array( 'admin_init', 'wp_ajax_core_scanner', 'wp_ajax_update_core_db' );
+	protected $autoload = array(
+		'admin_init',
+		'wp_ajax_core_scanner',
+		'wp_ajax_update_core_db',
+		'wp_ajax_compare_file',
+	);
 
 
 	/**
@@ -55,10 +60,7 @@ class CoreScanner extends UmbrellaAntivirus {
 	 */
 	public function admin_init() {
 		add_filter( 'umbrella-scanner-steps', array( $this, 'register_scanner' ) );
-
-		add_filter( 'scanner-buttons-0020', array( $this, 'add_compare_button') );
-		add_filter( 'scanner-buttons-0020', array( $this, 'add_ignore_button') );
-		add_filter( 'scanner-buttons-0010', array( $this, 'add_ignore_button') );
+		add_filter( 'scanner-buttons', array( $this, 'add_buttons' ) );
 	}
 
 	/**
@@ -92,21 +94,15 @@ class CoreScanner extends UmbrellaAntivirus {
 		return false !== get_transient( 'core_tree_list_' . $wp_version );
 	}
 
-	/**
-	 * Add ignore button.
-	 * Add ignore button to scanner results.
-	 */
-	public function add_ignore_button( $buttons ) {
-		$buttons[] = '<a href="#" ng-click="#" class="button">IGNORE</a>';
-		return $buttons;
-	}
 
 	/**
-	 * Add compare button.
+	 * Add button.
 	 * Add compare button to scanner results.
+	 *
+	 * @param array $buttons List of default buttons.
 	 */
-	public function add_compare_button( $buttons ) {
-		$buttons[] = '<a href="#" ng-click="#" class="button">COMPARE</a>';
+	public function add_buttons( $buttons ) {
+		$buttons[] = '<a href="#file-comparision" ng-if="result.error_code==0020" ng-click="compareFile(result.file)" class="button button-primary">COMPARE</a>';
 		return $buttons;
 	}
 
@@ -291,5 +287,50 @@ class CoreScanner extends UmbrellaAntivirus {
 		}
 
 		$this->render_json( $output );
+	}
+
+	/**
+	 * AJAX: Compare file
+	 * Compare a file with core SVN
+	 */
+	public function wp_ajax_compare_file() {
+
+		global $wp_version;
+
+		$this->only_admin(); // Die if not admin.
+
+		check_ajax_referer( 'umbrella_ajax_nonce', 'security' ); // Check nonce.
+
+		$whitelist = $this->whitelist();
+
+		if ( isset( $_POST['file'] ) ) {
+			$file = sanitize_text_field( wp_unslash( $_POST['file'] ) );
+		} else {
+			die( 'File is not included in core' );
+		}
+
+		// File is unknown or user trying to hack (not included in core).
+		if ( ! isset( $whitelist[ $file ] ) ) {
+			die( 'File is not included in core' );
+		}
+
+		$svn_url = "https://core.svn.wordpress.org/tags/{$wp_version}/{$file}";
+		$svn_request = wp_remote_get( $svn_url );
+
+		if ( is_wp_error( $svn_request ) ) {
+			$this->render_json( array( 'status' => 'error', 'message' => 'Could not connect to Wordpress SVN' ) );
+			die();
+		}
+
+		// Get contents of local file.
+		$local_file_data = file_get_contents( ABSPATH . $file );
+
+		// Get contents of remote file.
+		$svn_file_data = $svn_request['body'];
+
+		$diff = Diff::compare( $svn_file_data, $local_file_data );
+		$html = Diff::toTable( $diff );
+
+		$this->render_json( array( 'status' => 'success', 'html' => $html ) );
 	}
 }

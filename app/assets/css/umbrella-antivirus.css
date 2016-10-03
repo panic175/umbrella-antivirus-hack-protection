@@ -167,3 +167,20 @@
 [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
   display: none !important;
 }
+
+table.diff {
+  width: 100% !important;
+}
+
+table.diff td {
+  width: 50% !important;
+  font-size: 10px !important;
+  vertical-align : top !important;
+  white-space    : pre !important;
+  white-space    : pre-wrap !important;
+  font-family    : monospace !important;
+}
+
+td.diffInserted {
+  color: #e74c3c !important;
+}

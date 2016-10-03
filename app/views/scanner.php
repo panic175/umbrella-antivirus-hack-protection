@@ -52,10 +52,34 @@
 					<td style="max-width: 100px;vertical-align: middle;">{{result.file}}</td>
 					<td style="vertical-align: middle;">{{result.error_message}}</td>
 					<td>
-						<span ng-repeat="button in result.buttons" ng-bind-html="button" style="margin-right: 5px"></span>
+						<?php foreach ( apply_filters( 'scanner-buttons', array() ) as $button ): ?>
+							<?php echo  $button ; ?>
+						<?php endforeach; ?>
 					</td>
 				</tr>
 			</tbody>
 		</table>
+	</div>
+
+	<a name="file-comparision"></a>
+	<div ng-if="displayFileComparison">
+		<div id="compare-container">
+			<h3>File comparison</h3>
+			<div ng-if="compare_file_html==false">
+				<i class="fa fa-spin fa-spinner"></i> Downloading original source file..
+			</div>
+			<div ng-if="compare_file_html" class="revisions-diff-frame">
+				<div class="revisions-diff">
+					<table width="100%">
+						<tr>
+							<td style="font-weight: bold;">Original File</td>
+							<td style="font-weight: bold;">Modified File</td>
+						</tr>
+					</table>
+					<div class="diff" ng-bind-html="compare_file_html">
+					</div>
+				</div>
+			</div>
+		</div>
 	</div>
 </div>
