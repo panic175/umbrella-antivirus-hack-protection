@@ -1,5 +1,6 @@
 UmbrellaAntivirus.controller('Scanner', ['$scope', '$timeout', function($scope,$timeout) {
   $scope.showFullLog = false;
+  $scope.showIgnored = false;
   $scope.scannerCompleted = false;
   $scope.scannerRunning = false;
   $scope.results = [];
@@ -33,15 +34,33 @@ UmbrellaAntivirus.controller('Scanner', ['$scope', '$timeout', function($scope,$
 
   }
 
+  $scope.toggleShowIgnored = function() {
+    $scope.showIgnored = !$scope.showIgnored;
+    $scope.getResults();
+  }
+
   $scope.toggleLog = function() {
     $scope.showFullLog = ! $scope.showFullLog;
   }
 
   $scope.getResults = function() {
-    jQuery.post(ajaxurl, {'action': 'scanner_results' }, function(response) {
+    return results;
+  }
+
+  $scope.getResults = function() {
+    jQuery.post(ajaxurl, {'action': 'scanner_results', 'security': window.umbrella_ajax_nonce }, function(response) {
+      
+      var results = [];
+      angular.forEach(response.results, function(result) {
+        if (result.ignored == false || $scope.showIgnored == true) { 
+          this.push(result);
+        }
+      }, results);
+
       $scope.$apply(function () {
-        $scope.results = response.results;
+        $scope.results = results;
       });
+
     });
   }
 
@@ -87,6 +106,13 @@ UmbrellaAntivirus.controller('Scanner', ['$scope', '$timeout', function($scope,$
           $scope.compare_file_html = response.html;
         });
       }
+    });
+  }
+
+  $scope.ignoreResult = function( index, result ) {
+    $scope.results.splice(index, 1);
+    jQuery.post(ajaxurl, { 'action': 'ignore_result', 'file': result.file, 'error_code': result.error_code, 'security': window.umbrella_ajax_nonce }, function(response) {
+      console.log(response);
     });
   }
 

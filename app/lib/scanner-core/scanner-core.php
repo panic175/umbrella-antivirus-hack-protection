@@ -169,11 +169,14 @@ class CoreScanner extends UmbrellaAntivirus {
 		$scanner = $umbrella_antivirus->scanner;
 		$whitelist = $this->whitelist();
 
+		$file_size = filesize( $file_path );
+
 		// File is unknown (not included in core).
 		if ( ! isset( $whitelist[ $file ] ) ) {
 			return $scanner->add_result(
 				'core_scanner',
 				$file, // Relative file path.
+				$file_size,
 				'0010', // Error code.
 				'Unexpected file' // Error Message.
 			);
@@ -181,10 +184,11 @@ class CoreScanner extends UmbrellaAntivirus {
 
 		$original_size = $whitelist[ $file ];
 
-		if ( filesize( $file_path ) != $original_size ) {
+		if ( $file_size != $original_size ) {
 			return $scanner->add_result(
 				'core_scanner',
 				$file, // Relative file path.
+				$file_size,
 				'0020', // Error code.
 				'Modified file' // Error Message.
 			);

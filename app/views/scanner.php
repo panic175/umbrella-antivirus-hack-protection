@@ -9,6 +9,8 @@
 		<a href="#" class="button" ng-if="!showFullLog" ng-click="toggleLog()"> + Show full scan log</a>
 		<a href="#" class="button" ng-if="showFullLog" ng-click="toggleLog()"> - Hide full scan log</a>
 		<a href="#" class="button button-primary" ng-click="InitScanner()" ng-disabled="scannerRunning">Perform a new scan</a>
+
+		<label for="toggleShowIgnored" style="line-height:30px;margin-left: 10px;"><input id="toggleShowIgnored" type="checkbox" ng-model="showIgnored" ng-change="toggleShowIgnored()"> Include ignored results</label>
 	</div>
 
 	<div ng-if="logs.length!=0 && showFullLog">
@@ -28,7 +30,6 @@
 			</tbody>
 		</table>
 	</div>
-
 	<div ng-if="results.length==0 && scannerCompleted">
 		<h3>Scanner Results</h3>
 		<strong style="color:#27ae60">Scanner succeeded without any errors. No suspect files or issues were found. Good job!</strong>
@@ -45,7 +46,7 @@
 				</tr>
 			</thead>
 			<tbody>
-				<tr ng-repeat="result in results">
+				<tr ng-repeat="result in results" id="{{result.file}}-{{result.error_code}}">
 					<td style="max-width: 100px;vertical-align: middle;">
 						<a href="https://github.com/kjellberg/umbrella-antivirus-hack-protection/wiki/Error-codes#{{result.error_code}}" target="_blank">{{result.error_code}}</a>
 					</td>

@@ -100,9 +100,20 @@ class SecurityChecks extends UmbrellaAntivirus {
 
 	/**
 	 * Check that scanner was runned with successfull results within 24 hours
+	 * Don't include ignored results.
 	 */
 	private function check_scan_results() {
-		$results = get_transient( 'umbrella-scanner-results' );
+
+		$cached_results = get_transient( 'umbrella-scanner-results' );
+		$cached_results = apply_filters( 'scanner-results', $cached_results );
+		$results = array();
+
+		foreach ( $cached_results as $result ) {
+			if ( false === $result['ignored'] ) {
+				array_push( $results,  $result );
+			}
+		}
+
 		return ( isset( $results ) and is_array( $results ) and empty( $results ) );
 	}
 
