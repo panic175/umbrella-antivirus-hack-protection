@@ -207,7 +207,9 @@ class Scanner extends UmbrellaAntivirus {
 	 * Initializes a full scan.
 	 */
 	public function wp_ajax_init_scanner() {
+
 		$this->only_admin(); // Die if not admin.
+		check_ajax_referer( 'umbrella_ajax_nonce', 'security' ); // Check nonce.
 
 		$this->reset(); // Reset scanner results.
 
@@ -224,6 +226,7 @@ class Scanner extends UmbrellaAntivirus {
 	 * Render scanner results as JSON
 	 */
 	public function wp_ajax_scanner_results() {
+
 		$this->only_admin(); // Die if not admin.
 		check_ajax_referer( 'umbrella_ajax_nonce', 'security' ); // Check nonce.
 

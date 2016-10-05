@@ -168,6 +168,10 @@
   display: none !important;
 }
 
+table .fa-spin {
+  color: #212121;
+}
+
 table.diff {
   width: 100% !important;
 }

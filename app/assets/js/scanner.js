@@ -24,7 +24,7 @@ UmbrellaAntivirus.controller('Scanner', ['$scope', '$timeout', function($scope,$
     $scope.writeLog('Preparing...');
 
     /* Download plugins data */
-    jQuery.post(ajaxurl, {'action': 'init_scanner'}, function(response) {
+    jQuery.post(ajaxurl, { 'action': 'init_scanner', 'security': window.umbrella_ajax_nonce }, function(response) {
       $scope.$apply(function () {
         $scope.steps = response.steps;
         $scope.writeLog( response.log );
@@ -83,7 +83,7 @@ UmbrellaAntivirus.controller('Scanner', ['$scope', '$timeout', function($scope,$
 
   $scope.perform = function( step ) {
     /* Perform selected scan */
-    jQuery.post(ajaxurl, {'action': step.action }, function(response) {
+    jQuery.post(ajaxurl, {'action': step.action, 'security': window.umbrella_ajax_nonce }, function(response) {
       $scope.$apply(function () {
         if ( response.status == 'success' ) {
           $scope.writeLogs( response.logs );

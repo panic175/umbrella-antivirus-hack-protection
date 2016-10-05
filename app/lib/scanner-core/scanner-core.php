@@ -253,6 +253,8 @@ class CoreScanner extends UmbrellaAntivirus {
 
 		$this->only_admin(); // Die if not admin.
 
+		check_ajax_referer( 'umbrella_ajax_nonce', 'security' ); // Check nonce.
+
 		$number_of_files = $this->scan_core_files(); // Scan all core files.
 		$number_of_files = number_format( $number_of_files );
 
@@ -273,6 +275,8 @@ class CoreScanner extends UmbrellaAntivirus {
 	public function wp_ajax_update_core_db() {
 
 		$this->only_admin(); // Die if not admin.
+
+		check_ajax_referer( 'umbrella_ajax_nonce', 'security' ); // Check nonce.
 
 		if ( $this->build_core_list() ) {
 			$output = array(
